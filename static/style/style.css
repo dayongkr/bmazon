@@ -427,6 +427,11 @@ nav #noticeListWrapper li .noticeImage {
 
 #productWrapper #productDetailInfoWrapper {
   overflow-x: auto;
+  width: 100%;
+}
+
+#productWrapper #productDetailInfoWrapper img {
+  width: 100%;
 }
 
 #productBottomNavigation {

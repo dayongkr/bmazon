@@ -1,18 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Head from 'next/head';
 import Header from '../components/header';
 import withRedux from 'next-redux-wrapper';
 import { applyMiddleware, compose, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
-import axios from 'axios';
 
-// import rootSaga from '../sagas';
+import rootSaga from '../sagas';
 import reducer from '../reducers';
 
 import UseEffect_app from '../components/useEffect_app';
 
-const App = ({ Component, store }) => {
+const App = ({ Component, store, pageProps }) => {
   return (
     <>
       <Provider store={store}>
@@ -29,12 +28,21 @@ const App = ({ Component, store }) => {
         <Header></Header>
         <div id="mainWrapper" style={{ marginTop: '40px' }}>
           <UseEffect_app>
-            <Component></Component>
+            <Component {...pageProps}></Component>
           </UseEffect_app>
         </div>
       </Provider>
     </>
   );
+};
+
+App.getInitialProps = async context => {
+  const { ctx, Component } = context;
+  let pageProps = {};
+  if (Component.getInitialProps) {
+    pageProps = await Component.getInitialProps(ctx);
+  }
+  return { pageProps };
 };
 
 const configureStore = (initialState, options) => {
@@ -51,7 +59,7 @@ const configureStore = (initialState, options) => {
             : f => f,
         );
   const store = createStore(reducer, initialState, enhancer);
-  // sagaMiddleware.run(rootSaga);
+  sagaMiddleware.run(rootSaga);
   return store;
 };
 

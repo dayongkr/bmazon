@@ -1,22 +1,29 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import ProductDetailsWrapper from '../components/productDetailsWrapper';
 import ProductMainNavigation from '../components/productMainNavigation';
-import GetProductInfo from '../components/getProductInfo';
 
-const url = 'https://www.amazon.com/dp/B0756CYWWD';
-const Product = () => {
+import { PRODUCT_INFORMATION_REQUEST } from '../reducers/product';
+
+const Product = ({ url }) => {
   const { imageUrl, details } = useSelector(state => state.product);
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch({
+      type: PRODUCT_INFORMATION_REQUEST,
+      data: 'https://amazon.com/dp/B07G74V1YP',
+    });
+  }, []);
   return (
-    <GetProductInfo url={url}>
+    <>
       <div id="productMainImageWrapper">
         <img src={imageUrl} id="productMainImage"></img>
       </div>
 
       <div id="productWrapper">
-        <ProductDetailsWrapper url={url}></ProductDetailsWrapper>
+        <ProductDetailsWrapper></ProductDetailsWrapper>
         <ProductMainNavigation></ProductMainNavigation>
         {details ? (
           <div
@@ -34,8 +41,12 @@ const Product = () => {
       <div id="productBottomNavigation">
         <div id="productPutCartButton">장바구니 담기</div>
       </div>
-    </GetProductInfo>
+    </>
   );
+};
+
+Product.getInitialProps = async context => {
+  return { url: context.query.url };
 };
 
 export default Product;
