@@ -35,7 +35,7 @@ app.prepare().then(() => {
   );
 
   server.get('/product/:aisn', (req, res) => {
-    return app.render(req, res, 'product', { aisn: req.query.aisn });
+    return app.render(req, res, 'product', { aisn: req.params.aisn });
   });
 
   server.get('*', (req, res) => {

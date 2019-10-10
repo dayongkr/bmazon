@@ -21,18 +21,19 @@ export default (state = initialState, action) => {
     case PRODUCT_INFORMATION_REQUEST: {
       return {
         ...state,
-        url: action.data,
+        url: action.data.url,
+        asin: action.data.asin,
       };
     }
     case PRODUCT_INFORMATION_SUCCESS: {
       return {
         ...state,
         imageUrl: action.data.imageUrl,
-        asin: action.data.asin,
         name: action.data.name,
         price: action.data.price,
         category: action.data.category,
         details: action.data.details,
+        options: action.data.options,
       };
     }
     case PRODUCT_INFORMATION_FAILURE: {

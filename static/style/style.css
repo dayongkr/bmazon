@@ -427,11 +427,91 @@ nav #noticeListWrapper li .noticeImage {
 
 #productWrapper #productDetailInfoWrapper {
   overflow-x: auto;
-  width: 100%;
+  margin: 5px 0;
+  padding: 15px;
 }
 
-#productWrapper #productDetailInfoWrapper img {
-  width: 100%;
+#productWrapper #productOptions {
+  margin-top: 15px;
+  height: 75px;
+  border-radius: 5px;
+  padding: 15px 5px 15px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #eee;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
+}
+
+#productWrapper #productOptions .optionName {
+  color: #666;
+}
+
+#productWrapper #productOptions .option {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+#productWrapper #productOptions #productOptionImage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#productWrapper #productOptions .optionImage {
+  height: 50px;
+}
+
+#productWrapper #dimmedOption {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+#productWrapper #dimmedOption #optionSliderWrapper {
+  position: absolute;
+  bottom: 0;
+  background-color: white;
+  width: 100vw;
+  height: 240px;
+  padding: 20px 0;
+  overflow-y: auto;
+}
+
+#productWrapper #dimmedOption ul {
+  white-space: nowrap;
+}
+
+#productWrapper #dimmedOption li {
+  display: inline-block;
+  border: 1px solid rgb(180, 180, 180);
+  border-radius: 5px;
+  height: 200px;
+  padding: 10px;
+  margin: 0 10px;
+  position: relative;
+}
+
+#productWrapper #dimmedOption li + li {
+  margin-left: 0;
+}
+
+#productWrapper #dimmedOption li.selected {
+  border: 1px solid #5e3eda;
+}
+
+#productWrapper #dimmedOption li.selected .dimmedSelected {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #5e3eda;
+  opacity: 0.1;
 }
 
 #productBottomNavigation {
@@ -453,10 +533,4 @@ nav #noticeListWrapper li .noticeImage {
   font-weight: bold;
   text-align: center;
   line-height: 50px;
-}
-
-.loadingDummy {
-  background-color: #eee;
-  border-radius: 5px;
-  height: 20px;
 }
