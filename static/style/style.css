@@ -431,7 +431,7 @@ nav #noticeListWrapper li .noticeImage {
   padding: 15px;
 }
 
-#productWrapper #productOptions {
+#productWrapper .productOptions {
   margin-top: 15px;
   height: 75px;
   border-radius: 5px;
@@ -443,22 +443,22 @@ nav #noticeListWrapper li .noticeImage {
   box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
 }
 
-#productWrapper #productOptions .optionName {
+#productWrapper .productOptions .optionName {
   color: #666;
 }
 
-#productWrapper #productOptions .option {
+#productWrapper .productOptions .option {
   font-weight: bold;
   margin-top: 10px;
 }
 
-#productWrapper #productOptions #productOptionImage {
+#productWrapper .productOptions .productOptionImage {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-#productWrapper #productOptions .optionImage {
+#productWrapper .productOptions .optionImage {
   height: 50px;
 }
 
@@ -493,11 +493,23 @@ nav #noticeListWrapper li .noticeImage {
   height: 200px;
   padding: 10px;
   margin: 0 10px;
+  min-width: 130px;
   position: relative;
 }
 
 #productWrapper #dimmedOption li + li {
   margin-left: 0;
+}
+
+#productWrapper #dimmedOption li .optionImageWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#productWrapper #dimmedOption li .optionName {
+  margin-top: 10px;
 }
 
 #productWrapper #dimmedOption li.selected {

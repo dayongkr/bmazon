@@ -2,16 +2,20 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Head from 'next/head';
 
-import ProductDetailsWrapper from '../components/productDetailsWrapper';
-import ProductMainNavigation from '../components/productMainNavigation';
+import ProductDetailsWrapper from '../components/product/productDetailsWrapper';
+import ProductMainNavigation from '../components/product/productMainNavigation';
 
 import { PRODUCT_INFORMATION_REQUEST } from '../reducers/product';
+import { PRODUCT_INFORMATION_RESET } from '../reducers/product';
 
 const Product = ({ asin }) => {
   const { imageUrl, details } = useSelector(state => state.product);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch({
+      type: PRODUCT_INFORMATION_RESET,
+    });
     dispatch({
       type: PRODUCT_INFORMATION_REQUEST,
       data: { url: `https://amazon.com/dp/${asin}`, asin },
@@ -23,7 +27,7 @@ const Product = ({ asin }) => {
         <link rel="stylesheet" href="/static/style/amazon.css"></link>
       </Head>
       <div id="productMainImageWrapper">
-        <img src={imageUrl} id="productMainImage"></img>
+        {imageUrl && <img src={imageUrl} id="productMainImage"></img>}
       </div>
 
       <div id="productWrapper">
@@ -50,7 +54,6 @@ const Product = ({ asin }) => {
 };
 
 Product.getInitialProps = async context => {
-  console.log(context.query.asin);
   return { asin: context.query.asin };
 };
 

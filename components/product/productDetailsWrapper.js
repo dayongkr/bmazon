@@ -1,10 +1,10 @@
 import React, { useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import Head from 'next/head';
 
-import CategoryTag from '../components/categoryTag';
-import OptionSliderList from '../components/optionSliderList';
-import formattingComma from '../function/formattingComma';
+import CategoryTag from './categoryTag';
+import OptionSliderList from './optionSliderList';
+import formattingComma from '../../function/formattingComma';
+import OptionsWrapper from './optionsWrapper';
 
 const ProductDetailsWrapper = () => {
   const { rate, date, time } = useSelector(state => state.exchange);
@@ -49,30 +49,20 @@ const ProductDetailsWrapper = () => {
           {rate && `₩${formattingComma(7.89 * rate, true)}`}
         </span>
       </p>
-      {options && (
-        <div id="productOptionsWrapper" onClick={onClickOption}>
-          <div id="productOptions">
-            <div id="productOptionText">
-              <p className="optionName">{options.length}가지 색</p>
-              <p className="option">
-                {options.filter(item => item.asin === asin)[0].color}
-              </p>
-            </div>
-            <div id="productOptionImage">
-              <img
-                className="optionImage"
-                src={imageUrl}
-                alt="옵션이미지"
-              ></img>
-              <img
-                width="30px"
-                src="/static/images/keyboard_arrow_right-24px.svg"
-                alt="none"
-              ></img>
-            </div>
-          </div>
-        </div>
-      )}
+      {options &&
+        options.listName.map((item, index) => {
+          return (
+            <OptionsWrapper
+              options={options}
+              click={onClickOption}
+              img={imageUrl}
+              index={index}
+              selectedAsin={asin}
+              key={item}
+              listType={item}
+            ></OptionsWrapper>
+          );
+        })}
 
       <div
         id="dimmedOption"
@@ -82,11 +72,12 @@ const ProductDetailsWrapper = () => {
         <div id="optionSliderWrapper">
           <ul id="optionSlider">
             {options &&
-              options.map(item => (
+              options.option.map((item, index) => (
                 <OptionSliderList
                   key={item.asin}
-                  img={imageUrl}
+                  options={options}
                   option={item}
+                  index={index}
                   selected={item.asin === asin}
                 ></OptionSliderList>
               ))}

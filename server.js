@@ -34,8 +34,8 @@ app.prepare().then(() => {
     }),
   );
 
-  server.get('/product/:aisn', (req, res) => {
-    return app.render(req, res, 'product', { aisn: req.params.aisn });
+  server.get('/product/:asin', (req, res) => {
+    return app.render(req, res, '/product', { asin: req.params.asin });
   });
 
   server.get('*', (req, res) => {

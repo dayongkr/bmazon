@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import NoticeList from './noticeList';
+import Link from 'next/link';
 
 const Header = () => {
   const noticeRef = useRef();
@@ -18,14 +19,14 @@ const Header = () => {
         width="25"
         alt="메뉴버튼"
       ></img>
-      <a href="/">
+      <Link href="/">
         <img
           id="logoImage"
           src="/static/images/logo.png"
           height="22"
           alt="로고이미지"
         ></img>
-      </a>
+      </Link>
       <div id="alarmButtonWrapper" onClick={onClickNotice}>
         <img
           id="alarmButton"

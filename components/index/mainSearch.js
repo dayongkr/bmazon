@@ -1,7 +1,10 @@
 import React, { useState, useCallback } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const MainSearch = () => {
   const [value, setValue] = useState('');
+  const router = useRouter();
 
   const onChangeUrl = useCallback(e => {
     setValue(e.target.value);
@@ -10,7 +13,7 @@ const MainSearch = () => {
   const onClickSearch = useCallback(
     e => {
       e.preventDefault();
-      window.location.assign(`/product?asin=${value.match(/\/dp\/(\w+)/)[1]}`);
+      router.push(`/product/${value.match(/\/dp\/(\w+)/)[1]}`);
     },
     [value],
   );

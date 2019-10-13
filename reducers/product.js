@@ -10,11 +10,17 @@ export const initialState = {
   },
 };
 
-export const SET_PRODUCT_INFORMATION = 'SET_PRODUCT_INFORMATION';
-
 export const PRODUCT_INFORMATION_REQUEST = 'PRODUCT_INFORMATION_REQUEST';
 export const PRODUCT_INFORMATION_SUCCESS = 'PRODUCT_INFORMATION_SUCCESS';
 export const PRODUCT_INFORMATION_FAILURE = 'PRODUCT_INFORMATION_FAILURE';
+export const PRODUCT_INFORMATION_RESET = 'PRODUCT_INFORMATION_RESET';
+
+export const PRODUCT_OPTION_INFORMATION_REQUEST =
+  'PRODUCT_OPTION_INFORMATION_REQUEST';
+export const PRODUCT_OPTION_INFORMATION_SUCCESS =
+  'PRODUCT_OPTION_INFORMATION_SUCCESS';
+export const PRODUCT_OPTION_INFORMATION_FAILURE =
+  'PRODUCT_OPTION_INFORMATION_FAILURE';
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -37,6 +43,42 @@ export default (state = initialState, action) => {
       };
     }
     case PRODUCT_INFORMATION_FAILURE: {
+      return {
+        ...state,
+      };
+    }
+    case PRODUCT_INFORMATION_RESET: {
+      return {
+        ...state,
+        imageUrl: '',
+        url: '',
+        asin: '',
+        name: '',
+        price: '',
+        category: [],
+        details: '',
+      };
+    }
+    case PRODUCT_OPTION_INFORMATION_REQUEST: {
+      return {
+        ...state,
+      };
+    }
+    case PRODUCT_OPTION_INFORMATION_SUCCESS: {
+      const option = state.options.option;
+      const currentIndex = option.findIndex(
+        item => item.asin === action.data.asin,
+      );
+      option[currentIndex].imageUrl = action.data.imageUrl;
+      return {
+        ...state,
+        options: {
+          ...state.options,
+          option: [...option],
+        },
+      };
+    }
+    case PRODUCT_OPTION_INFORMATION_FAILURE: {
       return {
         ...state,
       };

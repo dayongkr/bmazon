@@ -1,11 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import MainSearch from '../components/mainSearch';
-import NoticeBar from '../components/noticeBar';
-import SubWrapper from '../components/subWrapper';
-import ExchangeRateInput from '../components/exchangeRateInput';
-import ProductShowWrapper from '../components/productShowWrapper';
+import MainSearch from '../components/index/mainSearch';
+import NoticeBar from '../components/index/noticeBar';
+import SubWrapper from '../components/index/subWrapper';
+import ExchangeRateInput from '../components/index/exchangeRateInput';
+import ProductShowWrapper from '../components/index/productShowWrapper';
 
 const Home = () => {
   const { rate, date, time, provider } = useSelector(state => state.exchange);
