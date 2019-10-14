@@ -1,50 +1,50 @@
-import React, { useCallback, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 
-import { PRODUCT_OPTION_INFORMATION_REQUEST } from '../../reducers/product';
+import OptionSliderItem from './optionSliderItem';
 
-const OptionSliderList = ({ option, options, selected, index }) => {
-  const dispatch = useDispatch();
-  const router = useRouter();
-  const onClickOption = useCallback(() => {
-    router.push(`/product/${option.asin}`);
-  });
+const OptionSliderList = ({
+  sliderIndex,
+  options,
+  sliderItem,
+  asin,
+  optionSelect,
+  setOptionSelect,
+}) => {
+  const selectOptionTitle =
+    options.listValue[sliderItem][
+      options.option.filter(sliderItem => sliderItem.asin === asin)[0].list[
+        sliderIndex
+      ]
+    ];
 
-  useEffect(() => {
-    dispatch({
-      type: PRODUCT_OPTION_INFORMATION_REQUEST,
-      data: {
-        asin: option.asin,
-        index: index,
-      },
-    });
-  }, []);
+  let title = sliderItem.replace(/_|name/g, ' ').split('');
+  title[0] = title[0].toUpperCase();
+  title = title.join('').trim();
 
-  if (selected) {
-    return (
-      <li className="selected" onClick={onClickOption}>
-        <div className="dimmedSelected"></div>
-        {option.imageUrl && (
-          <img src={option.imageUrl} alt="옵션1이미지" height="110px"></img>
-        )}
-        <p className="optionName">
-          {options.listValue[options.listName[0]][option.list[0]]}
-        </p>
-      </li>
-    );
-  }
   return (
-    <li onClick={onClickOption}>
-      <div className="optionImageWrapper">
-        {option.imageUrl && (
-          <img src={option.imageUrl} alt="옵션1이미지" height="110px"></img>
-        )}
-      </div>
-      <p className="optionName">
-        {options.listValue[options.listName[1]][option.list[0]]}
+    <>
+      <p className="optionTitle">
+        <span className="title">{title}:</span>
+        {` ${selectOptionTitle}`}
       </p>
-    </li>
+      <ul className="optionSlider">
+        {options &&
+          options.listValue[sliderItem].map((item, optionIndex) => {
+            return (
+              <OptionSliderItem
+                key={item}
+                options={options}
+                sliderIndex={sliderIndex}
+                optionIndex={optionIndex}
+                selected={optionSelect[sliderIndex] == optionIndex}
+                optionSelect={optionSelect}
+                setOptionSelect={setOptionSelect}
+              ></OptionSliderItem>
+            );
+          })}
+      </ul>
+    </>
   );
 };
+
 export default OptionSliderList;

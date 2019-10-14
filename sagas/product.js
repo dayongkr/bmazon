@@ -77,17 +77,11 @@ function* getProductInfo(action) {
       data: {
         imageUrl: $('img#main-image').data('a-hires'),
         price:
-          $('div#newPitchPriceWrapper_feature_div').find('#priceblock_ourprice')
-            .length !== 0
-            ? $('div#newPitchPriceWrapper_feature_div')
-                .find('#priceblock_ourprice')
-                .text()
-                .trim()
-                .substring(1)
-            : $('div#newPitchPriceWrapper_feature_div')
-                .find('span.price-large')
-                .text()
-                .trim(),
+          $('div#cerberus-data-metrics').data('asin-price') ||
+          $('#priceblock_ourprice')
+            .text()
+            .trim()
+            .substring(1),
         name: $('span#title')
           .text()
           .trim(),
@@ -123,6 +117,7 @@ function* getOptionInfo(action) {
   try {
     let data = yield call(getOptionAPI, action.data);
     data = yield data.data.filter(item => item.asin === action.data.asin)[0];
+    console.log(data, action.data.asin, action.data.index);
     yield put({
       type: PRODUCT_OPTION_INFORMATION_SUCCESS,
       data: {

@@ -1,10 +1,10 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import CategoryTag from './categoryTag';
-import OptionSliderList from './optionSliderList';
 import formattingComma from '../../function/formattingComma';
 import OptionsWrapper from './optionsWrapper';
+import OptionSliderList from './optionSliderList';
 
 const ProductDetailsWrapper = () => {
   const { rate, date, time } = useSelector(state => state.exchange);
@@ -12,6 +12,15 @@ const ProductDetailsWrapper = () => {
     state => state.product,
   );
   const [dimmed, setDimmed] = useState('none');
+  const [optionSelect, setOptionSelect] = useState([]);
+
+  useEffect(() => {
+    if (options) {
+      setOptionSelect([
+        ...options.option.filter(item => item.asin === asin)[0].list,
+      ]);
+    }
+  }, [options]);
 
   const onClickOption = useCallback(
     e => {
@@ -58,30 +67,29 @@ const ProductDetailsWrapper = () => {
               img={imageUrl}
               index={index}
               selectedAsin={asin}
-              key={item}
+              key={item + 'OptionsWrapper'}
               listType={item}
             ></OptionsWrapper>
           );
         })}
 
-      <div
-        id="dimmedOption"
-        onClick={onClickOption}
-        style={{ display: dimmed }}
-      >
+      <div id="dimmedOption" style={{ display: dimmed }}>
+        <div id="optionBackground" onClick={onClickOption}></div>
         <div id="optionSliderWrapper">
-          <ul id="optionSlider">
-            {options &&
-              options.option.map((item, index) => (
+          {options &&
+            options.listName.map((sliderItem, sliderIndex) => {
+              return (
                 <OptionSliderList
-                  key={item.asin}
+                  sliderItem={sliderItem}
+                  sliderIndex={sliderIndex}
                   options={options}
-                  option={item}
-                  index={index}
-                  selected={item.asin === asin}
+                  key={sliderItem + `listName`}
+                  asin={asin}
+                  optionSelect={optionSelect}
+                  setOptionSelect={setOptionSelect}
                 ></OptionSliderList>
-              ))}
-          </ul>
+              );
+            })}
         </div>
       </div>
       <a

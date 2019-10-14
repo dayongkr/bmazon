@@ -25,6 +25,7 @@ const Product = ({ asin }) => {
     <>
       <Head>
         <link rel="stylesheet" href="/static/style/amazon.css"></link>
+        <link rel="stylesheet" href="/static/style/product.css"></link>
       </Head>
       <div id="productMainImageWrapper">
         {imageUrl && <img src={imageUrl} id="productMainImage"></img>}

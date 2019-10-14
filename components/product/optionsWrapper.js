@@ -9,11 +9,16 @@ const OptionsWrapper = ({
   listType,
 }) => {
   const { option, listName, listValue } = options;
+  // const title = listName[index].match(/\w*(?=_name)/)[0].split('');
+  let title = listName[index].replace(/_|name/g, ' ').split('');
+  title[0] = title[0].toUpperCase();
+  title = title.join('').trim();
+
   return (
     <div className="productOptionsWrapper" onClick={click}>
       <div className="productOptions">
         <div className="productOptionText">
-          <p className="optionName">{listName[index].match(/\w*(?=_name)/)}</p>
+          <p className="optionName">{title}</p>
           <p className="option">
             {
               listValue[listType][

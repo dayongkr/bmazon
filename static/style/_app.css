@@ -1,0 +1,88 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #eee;
+  color: #333;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: normal;
+}
+
+/* header */
+
+nav {
+  background-color: #5e3eda;
+  height: 40px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 18px 0 10px;
+}
+
+nav #alarmButtonWrapper {
+  position: relative;
+  cursor: pointer;
+}
+
+nav #alarmButtonWrapper #alarmButtonCount {
+  width: 15px;
+  height: 15px;
+  background-color: #cc2b2b;
+  border-radius: 15px;
+  font-size: 11px;
+  color: white;
+  text-align: center;
+  line-height: 14px;
+  position: absolute;
+  top: -4px;
+  left: 12px;
+}
+
+nav #logoImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+nav #noticeListWrapper {
+  display: none;
+}
+
+nav #noticeListWrapper.active {
+  display: block;
+  position: absolute;
+  top: 40px;
+  right: 0;
+  width: 300px;
+  height: 150px;
+  overflow-y: auto;
+  background-color: white;
+  border-radius: 5px 0 5px 5px;
+  font-size: 12px;
+  box-shadow: -3px 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+nav #noticeListWrapper li {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  padding: 10px;
+  border-bottom: 1px solid#eee;
+  cursor: pointer;
+}
+
+nav #noticeListWrapper li .noticeImage {
+  background-color: #eee;
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import Head from 'next/head';
 
 import MainSearch from '../components/index/mainSearch';
 import NoticeBar from '../components/index/noticeBar';
@@ -12,6 +13,9 @@ const Home = () => {
 
   return (
     <>
+      <Head>
+        <link rel="stylesheet" href="/static/style/index.css"></link>
+      </Head>
       <MainSearch></MainSearch>
       <NoticeBar text="2019년 12월 21일 서비스 점검이 있습니다."></NoticeBar>
       <SubWrapper title="주간 인기상품">

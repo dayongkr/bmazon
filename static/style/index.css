@@ -1,0 +1,157 @@
+#searchWrapper {
+  background-color: #5e3eda;
+  height: 150px;
+  position: relative;
+}
+
+#searchWrapper #mainSearchWrapper {
+  height: 40px;
+  width: 90%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+#searchWrapper #mainSearchWrapper #searchButton {
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  bottom: 0;
+  right: 10px;
+  margin: auto;
+}
+
+#searchWrapper #mainSearchWrapper #mainSearch {
+  background-color: white;
+  border-radius: 5px;
+  padding: 0 45px 0 10px;
+  width: 100%;
+  height: 40px;
+  font-size: 12px;
+  border: none;
+  outline: none;
+}
+
+#searchWrapper #mainSearch::placeholder {
+  opacity: 0.5;
+}
+
+.noticeBar {
+  background-color: #f07b3f;
+  height: 30px;
+  padding: 0 5px;
+}
+
+.noticeBar a {
+  font-size: 12px;
+  color: white;
+  line-height: 30px;
+  text-decoration: none;
+}
+
+.subWrapper {
+  border-radius: 5px;
+  margin-top: 10px;
+  padding: 0 20px 20px;
+  background-color: white;
+}
+
+.subWrapper::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.subWrapper > .title {
+  border-bottom: 1px solid #eee;
+  padding: 15px 0;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.exchangeRateWrapper {
+  height: 40px;
+  position: relative;
+}
+
+.exchangeRateWrapper + .exchangeRateWrapper {
+  margin-top: 10px;
+}
+
+.exchangeRateWrapper .country {
+  line-height: 40px;
+  position: absolute;
+  font-size: 23px;
+  top: 0;
+  bottom: 0;
+  left: 12px;
+  margin: auto;
+}
+
+.exchangeRateWrapper .exchangeRateInput {
+  width: 80%;
+  height: 40px;
+  margin: auto;
+  border: none;
+  border-radius: 40px;
+  background-color: #eeeeee;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  padding: 0 12px 0 48px;
+}
+
+.productShowWrapper {
+  height: 75px;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  position: relative;
+  cursor: pointer;
+}
+
+.productShowWrapper + .productShowWrapper {
+  margin-top: 15px;
+}
+
+.productShowWrapper .productImage {
+  width: 50px;
+  height: 50px;
+  background-repeat: none;
+  background-position: center;
+  background-size: cover;
+  background-color: #eee;
+  position: absolute;
+  left: 10px;
+  top: 12.5px;
+}
+
+.productShowWrapper .productDetails {
+  position: absolute;
+  left: 70px;
+  top: 12.5px;
+}
+
+.productShowWrapper .productDetails .title {
+  font-size: 14px;
+  color: #666;
+}
+
+.productShowWrapper .productDetails .price {
+  float: left;
+  font-size: 12px;
+  color: #999;
+  margin-top: 5px;
+}
+
+.productShowWrapper .shoppingLogoImage {
+  position: absolute;
+  right: 15px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}

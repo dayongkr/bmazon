@@ -18,7 +18,7 @@ const App = ({ Component, store, pageProps }) => {
         <Head>
           <title>bmazon</title>
           <link rel="stylesheet" href="/static/style/reset.css"></link>
-          <link rel="stylesheet" href="/static/style/style.css"></link>
+          <link rel="stylesheet" href="/static/style/_app.css"></link>
           <link
             href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&display=swap"
             rel="stylesheet"
