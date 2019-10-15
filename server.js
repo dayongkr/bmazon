@@ -6,6 +6,8 @@ const expressSession = require('express-session');
 const dotenv = require('dotenv');
 const compression = require('compression');
 
+const productAPIRouter = require('./routes/product');
+
 const dev = process.env.NODE_ENV !== 'production';
 const prod = process.env.NODE_ENV === 'production';
 
@@ -37,6 +39,8 @@ app.prepare().then(() => {
   server.get('/product/:asin', (req, res) => {
     return app.render(req, res, '/product', { asin: req.params.asin });
   });
+
+  server.use('/api/product', productAPIRouter);
 
   server.get('*', (req, res) => {
     return handle(req, res);
