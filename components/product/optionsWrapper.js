@@ -21,6 +21,7 @@ const OptionsWrapper = ({
           <p className="optionName">{title}</p>
           <p className="option">
             {
+              // 선택된 옵션 이름 찾기
               listValue[listType][
                 option.filter(item => item.asin === selectedAsin)[0].list[index]
               ]

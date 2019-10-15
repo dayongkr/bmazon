@@ -24,12 +24,11 @@
 #productWrapper #productDetailsWrapper > .title {
   font-size: 18px;
   font-weight: bold;
-  padding-right: 60px;
+  line-height: 21px;
 }
 
 #productDetailsWrapper #productCategoryWrapper {
   margin: 5px 0;
-  padding-right: 60px;
 }
 
 #productDetailsWrapper #productCategoryWrapper .categoryTag {

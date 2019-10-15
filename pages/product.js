@@ -34,18 +34,14 @@ const Product = ({ asin }) => {
       <div id="productWrapper">
         <ProductDetailsWrapper></ProductDetailsWrapper>
         <ProductMainNavigation></ProductMainNavigation>
-        {details ? (
-          <div
-            id="productDetailInfoWrapper"
-            className="aplus-v2 mobile celwidget weblabRtl"
-            cel_widget_id="m-aplus"
-            data-cel-widget="m-aplus"
-          >
-            <div dangerouslySetInnerHTML={{ __html: details }}></div>
-          </div>
-        ) : (
-          <div style={{ height: '100vh' }}></div>
-        )}
+        <div
+          id="productDetailInfoWrapper"
+          className="aplus-v2 mobile celwidget weblabRtl"
+          cel_widget_id="m-aplus"
+          data-cel-widget="m-aplus"
+        >
+          <div dangerouslySetInnerHTML={{ __html: details }}></div>
+        </div>
       </div>
       <div id="productBottomNavigation">
         <div id="productPutCartButton">장바구니 담기</div>

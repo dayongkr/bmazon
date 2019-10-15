@@ -16,10 +16,12 @@ const OptionSliderList = ({
         sliderIndex
       ]
     ];
-
-  let title = sliderItem.replace(/_|name/g, ' ').split('');
-  title[0] = title[0].toUpperCase();
-  title = title.join('').trim();
+  const title = sliderItem
+    .replace(/_|name/g, ' ')
+    .split('')
+    .map((item, index) => (index === 0 ? item.toUpperCase() : item))
+    .join('')
+    .trim();
 
   return (
     <>

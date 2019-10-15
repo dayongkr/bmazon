@@ -11,6 +11,7 @@ const ProductDetailsWrapper = () => {
   const { name, price, category, asin, options, imageUrl } = useSelector(
     state => state.product,
   );
+
   const [dimmed, setDimmed] = useState('none');
   const [optionSelect, setOptionSelect] = useState([]);
 
@@ -92,18 +93,6 @@ const ProductDetailsWrapper = () => {
             })}
         </div>
       </div>
-      <a
-        href={
-          asin ? `https://www.amazon.com/dp/${asin}` : 'https://www.amazon.com'
-        }
-      >
-        <img
-          src="http://pngimg.com/uploads/amazon/amazon_PNG5.png"
-          width="50"
-          className="productOriginShop"
-          alt="상품 원본 사이트"
-        ></img>
-      </a>
       <div id="productButtonWrapper">
         <button className="productHeartButton">
           <img
