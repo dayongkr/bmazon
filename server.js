@@ -5,17 +5,13 @@ const cookieParser = require('cookie-parser');
 const expressSession = require('express-session');
 const dotenv = require('dotenv');
 const compression = require('compression');
-const path = require('path');
 
 const productAPIRouter = require('./routes/product');
 
 const dev = process.env.NODE_ENV !== 'production';
 const prod = process.env.NODE_ENV === 'production';
 
-const app = next({
-  dev,
-  conf: { distDir: `${path.relative(process.cwd(), __dirname)}/../next` },
-});
+const app = next({ dev });
 const handle = app.getRequestHandler();
 
 dotenv.config();
