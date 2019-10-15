@@ -12,7 +12,7 @@ import {
 } from '../reducers/product';
 
 function getProductInfoAPI({ asin }) {
-  return axios(`http://localhost/api/product/${asin}`);
+  return axios(`/api/product/${asin}`);
 }
 
 function* getProductInfo(action) {
@@ -110,7 +110,7 @@ function* watchProductInfo() {
 }
 
 function getOptionAPI(data) {
-  return axios(`http://localhost/api/product/option/${data.asin}`);
+  return axios(`/api/product/option/${data.asin}`);
 }
 
 function* getOptionInfo(action) {
