@@ -9,10 +9,12 @@ const OptionsWrapper = ({
   listType,
 }) => {
   const { option, listName, listValue } = options;
-  // const title = listName[index].match(/\w*(?=_name)/)[0].split('');
-  let title = listName[index].replace(/_|name/g, ' ').split('');
-  title[0] = title[0].toUpperCase();
-  title = title.join('').trim();
+  const title = listName[index] // 옵션 타이틀 지정
+    .replace(/_|name/g, ' ')
+    .split('')
+    .map((item, index) => (index === 0 ? item.toUpperCase() : item))
+    .join('')
+    .trim();
 
   return (
     <div className="productOptionsWrapper" onClick={click}>
