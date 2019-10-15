@@ -1,0 +1,1 @@
+{"ast":null,"code":"var __jsx = React.createElement;\nimport React from 'react';\n\nvar CategoryTag = function CategoryTag(_ref) {\n  var _ref$text = _ref.text,\n      text = _ref$text === void 0 ? '카테고리' : _ref$text;\n  return __jsx(\"span\", {\n    className: \"categoryTag\"\n  }, text);\n};\n\nexport default CategoryTag;","map":null,"metadata":{},"sourceType":"module"}
