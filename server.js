@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const expressSession = require('express-session');
 const dotenv = require('dotenv');
 const compression = require('compression');
+const path = require('path');
 
 const productAPIRouter = require('./routes/product');
 
