@@ -11,7 +11,10 @@ const productAPIRouter = require('./routes/product');
 const dev = process.env.NODE_ENV !== 'production';
 const prod = process.env.NODE_ENV === 'production';
 
-const app = next({ dev });
+const app = next({
+  dev,
+  conf: { distDir: `${path.relative(process.cwd(), __dirname)}/../next` },
+});
 const handle = app.getRequestHandler();
 
 dotenv.config();
