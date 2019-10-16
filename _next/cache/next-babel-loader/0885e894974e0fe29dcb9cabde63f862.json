@@ -1,1 +1,0 @@
-{"ast":null,"code":"var __jsx = React.createElement;\nimport React from 'react';\n\nconst CategoryTag = ({\n  text = '카테고리'\n}) => {\n  return __jsx(\"span\", {\n    className: \"categoryTag\"\n  }, text);\n};\n\nexport default CategoryTag;","map":null,"metadata":{},"sourceType":"module"}
