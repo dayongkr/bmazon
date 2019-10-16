@@ -16,6 +16,7 @@ router.get('/:asin', async (req, res, next) => {
     );
     res.send(html.data);
   } catch (e) {
+    res.send(e);
     console.error(e);
     next(e);
   }
@@ -30,6 +31,7 @@ router.get('/option/:asin', async (req, res, next) => {
     );
     res.json(json.data.data);
   } catch (e) {
+    res.send(e);
     console.error(e);
     next(e);
   }
