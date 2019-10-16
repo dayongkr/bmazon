@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
-import Header from '../components/header';
 import withRedux from 'next-redux-wrapper';
+import withReduxSaga from 'next-redux-saga';
 import { applyMiddleware, compose, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
@@ -12,6 +12,7 @@ import reducer from '../reducers';
 
 import UseEffect_app from '../components/useEffect_app';
 import ResetStyle from '../styled-components/resetStyle';
+import Header from '../components/header';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -73,8 +74,8 @@ const configureStore = (initialState, options) => {
             : f => f,
         );
   const store = createStore(reducer, initialState, enhancer);
-  sagaMiddleware.run(rootSaga);
+  store.sagaTask = sagaMiddleware.run(rootSaga);
   return store;
 };
 
-export default withRedux(configureStore)(App);
+export default withRedux(configureStore)(withReduxSaga(App));

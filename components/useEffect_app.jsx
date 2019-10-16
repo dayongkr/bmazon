@@ -26,4 +26,8 @@ const UseEffect_app = ({ children }) => {
   return <> {children}</>;
 };
 
+UseEffect_app.getInitialProps = async context => {
+  console.log(context);
+};
+
 export default UseEffect_app;
