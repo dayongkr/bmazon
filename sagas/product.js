@@ -77,13 +77,20 @@ function* getProductInfo(action) {
       const src = $(item)
         .find('script')
         .filter((index, item) => item.firstChild)
-        .map((index, item) =>
+        .map((index, item) => [
           item.firstChild.data.match(
-            /https:\/\/m\.media-amazon\.com\/images\/S\/aplus-media\/vc\/\S*.mp4/gm,
+            /https:\/\/m\.media-amazon\.com\/images\/S\/aplus-media\/vc\/\S*.mp4/,
           ),
-        );
+          item.firstChild.data.match(
+            /https:\/\/m\.media-amazon\.com\/images\/S\/aplus-media\/vc\/\S*.jpg/,
+          ),
+        ]);
+      console.log(src);
+
       $(item).after(
-        `<video controls="controls" src=${src[0]} preload="auto"></video>`,
+        `<video controls preload="metadata" poster=${src[1]}><source src=${
+          src[0]
+        } type="video/mp4"></source></video>`,
       );
       $(item).remove();
     });

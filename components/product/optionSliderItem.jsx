@@ -12,47 +12,51 @@ const OptionSliderItem = ({
   const router = useRouter();
   const liRef = useRef();
 
+  const checkAvailableOption = (optionSelect, options) => {
+    if (optionSelect.length === 1) {
+      // 옵션 종류가 한개일때
+      if (options.option.some(item => item.list[0] == optionIndex)) {
+        // 해당 옵션이 존재하면
+        liRef.current.classList.remove('none');
+      } else {
+        liRef.current.classList.add('none');
+      }
+    } else {
+      // 그 이상일때
+      const checkOption = [...optionSelect].map((item, index) =>
+        index == sliderIndex ? optionIndex + '' : item,
+      ); //
+
+      if (
+        options.option.filter(item =>
+          item.list.every((item, index) => item == checkOption[index]),
+        ).length === 0 // 가상으로 선택한 옵션들의 조합이 선택이 불가능하다면
+      ) {
+        liRef.current.classList.add('none');
+      } else {
+        liRef.current.classList.remove('none');
+      }
+    }
+  };
+
+  const findAvailableOption = options => {
+    return options.option
+      .filter(item => item.list[sliderIndex] == optionIndex)
+      .sort(
+        (x, y) =>
+          x.list.reduce((x, y) => x + y) - y.list.reduce((x, y) => x + y),
+      )[0];
+  };
+
   useEffect(() => {
-    if (liRef.current) {
+    if (liRef.current && optionSelect.length !== 0 && options) {
       if (selected) {
+        // 선택 확인
         liRef.current.classList.add('selected');
       } else {
         liRef.current.classList.remove('selected');
       }
-      if (optionSelect.length === 1) {
-        if (
-          !options.option.some(item => item.list[sliderIndex] == optionIndex)
-        ) {
-          liRef.current.classList.add('none');
-        } else {
-          liRef.current.classList.remove('none');
-        }
-      } else {
-        if (sliderIndex + 1 === optionSelect.length) {
-          if (
-            !options.option
-              .filter(item => item.list[0] === optionSelect[0])
-              .some(item => item.list[sliderIndex] == optionIndex)
-          ) {
-            liRef.current.classList.add('none');
-          } else {
-            liRef.current.classList.remove('none');
-          }
-        } else {
-          if (
-            !options.option
-              .filter(
-                item =>
-                  item.list[sliderIndex + 1] === optionSelect[sliderIndex + 1],
-              )
-              .some(item => item.list[sliderIndex] == optionIndex)
-          ) {
-            liRef.current.classList.add('none');
-          } else {
-            liRef.current.classList.remove('none');
-          }
-        }
-      }
+      checkAvailableOption(optionSelect, options);
     }
   }, [optionSelect, options]);
 
@@ -68,25 +72,17 @@ const OptionSliderItem = ({
     if (liRef.current) {
       if (liRef.current.classList.contains('none')) {
         // 가능한 옵션 찾기
-        const availableOption = options.option
-          .filter(item => item.list[sliderIndex] == optionIndex)
-          .sort(
-            (x, y) =>
-              x.list.reduce((x, y) => x + y) - y.list.reduce((x, y) => x + y),
-          )[0];
-        setOptionSelect([...availableOption.list]);
+        setOptionSelect(findAvailableOption(options).list);
+      } else if (sliderIndex + 1 === options.listName.length) {
+        setOptionSelect(selectedOption);
+        const optionAsin = options.option.filter(item =>
+          item.list.every(
+            (item, sliderIndex) => item === selectedOption[sliderIndex],
+          ),
+        )[0].asin;
+        router.push(`/product/${optionAsin}`);
       } else {
-        if (sliderIndex + 1 === options.listName.length) {
-          setOptionSelect([...selectedOption]);
-          const optionAsin = options.option.filter(item =>
-            item.list.every(
-              (item, sliderIndex) => item === selectedOption[sliderIndex],
-            ),
-          )[0].asin;
-          router.push(`/product/${optionAsin}`);
-        } else {
-          setOptionSelect([...selectedOption]);
-        }
+        setOptionSelect(selectedOption);
       }
     }
   }, [optionSelect]);

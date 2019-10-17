@@ -8,7 +8,8 @@ export const ProductMainImageWrapper = styled.div`
   align-items: center;
 
   & #productMainImage {
-    height: 100vw;
+    max-width: 100%;
+    max-height: 100vw;
   }
 `;
 
@@ -240,6 +241,7 @@ export const ProductDetailInfoWrapper = styled.div`
 
   & video {
     width: 100%;
+    object-fit: cover;
   }
 
   & .a-box {

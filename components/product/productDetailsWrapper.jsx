@@ -69,6 +69,7 @@ const ProductDetailsWrapper = () => {
         </span>
       </ShipPrice>
       {options &&
+        options.option.length !== 1 &&
         options.listName.map((item, index) => {
           return (
             <OptionsWrapper
@@ -87,6 +88,7 @@ const ProductDetailsWrapper = () => {
         <div id="optionBackground" onClick={onClickOption}></div>
         <div id="optionSliderWrapper">
           {options &&
+            options.option.length !== 1 &&
             options.listName.map((sliderItem, sliderIndex) => {
               return (
                 <OptionSliderList

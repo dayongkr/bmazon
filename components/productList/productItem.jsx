@@ -1,56 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
 
-const ProductItemWrapper = styled.div`
-  width: 48%;
-  margin-bottom: 20px;
-  border-radius: 5px;
-  cursor: pointer;
-
-  & .productImage {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  & .category {
-    font-size: 12px;
-    color: #999;
-    font-weight: bold;
-    margin: 5px 0;
-  }
-
-  & .title {
-    line-height: 1.2em;
-    margin: 5px 0;
-    font-size: 14px;
-    max-height: 30px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    word-break: break-all;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-  }
-
-  & .others {
-    margin: 5px 0;
-    display: flex;
-    align-items: center;
-  }
-
-  & .others img {
-    margin-right: 3px;
-  }
-
-  & .others span {
-    font-size: 12px;
-    color: #999;
-    margin-right: 10px;
-  }
-`;
+import { ProductItemWrapper } from '../../styled-components/productList/productList';
 
 const ProductItem = () => {
   console.log(
@@ -63,7 +13,6 @@ const ProductItem = () => {
       <div className="productImage">
         <img
           src="https://images-na.ssl-images-amazon.com/images/I/81qI0w7PEzL._SL1500_.jpg"
-          height="110px"
           alt="상품이미지"
         ></img>
       </div>
