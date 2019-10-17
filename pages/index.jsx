@@ -7,12 +7,17 @@ import SubWrapper from '../components/index/subWrapper';
 import ExchangeRateInput from '../components/index/exchangeRateInput';
 import ProductShowWrapper from '../components/index/productShowWrapper';
 
+import SearchWrapper from '../styled-components/index/searchWrapper';
+
 const Home = () => {
   const { rate, date, time, provider } = useSelector(state => state.exchange);
 
   return (
     <>
-      <MainSearch></MainSearch>
+      <SearchWrapper>
+        <MainSearch></MainSearch>
+      </SearchWrapper>
+
       <NoticeBar text="2019년 12월 21일 서비스 점검이 있습니다."></NoticeBar>
       <SubWrapper title="주간 인기상품">
         <ProductShowWrapper></ProductShowWrapper>

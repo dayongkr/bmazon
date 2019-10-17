@@ -1,4 +1,4 @@
-import { all, fork, takeEvery, call, put } from 'redux-saga/effects';
+import { all, fork, takeLatest, call, put } from 'redux-saga/effects';
 import axios from 'axios';
 
 import {
@@ -32,7 +32,7 @@ function* getExchangeRate() {
 }
 
 function* watchExchange() {
-  yield takeEvery(EXCHANGE_RATE_REQUEST, getExchangeRate);
+  yield takeLatest(EXCHANGE_RATE_REQUEST, getExchangeRate);
 }
 
 export default function* exchangeSaga() {

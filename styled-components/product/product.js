@@ -232,4 +232,20 @@ export const ProductDetailInfoWrapper = styled.div`
     font-weight: 700;
     color: #fff;
   }
+
+  & .aplus-v2.mobile .premium-aplus-module-12 .aplus-goto-btn.aplus-active {
+    background-color: #000;
+    color: #fff;
+  }
+
+  & video {
+    width: 100%;
+  }
+
+  & .a-box {
+    display: block;
+    border-radius: 0.4rem;
+    border: 0.1rem #ddd solid;
+    background-color: #fff;
+  }
 `;

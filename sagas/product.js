@@ -1,4 +1,4 @@
-import { all, fork, takeEvery, call, put } from 'redux-saga/effects';
+import { all, fork, takeLatest, call, put } from 'redux-saga/effects';
 import axios from 'axios';
 import cheerio from 'cheerio';
 
@@ -72,6 +72,22 @@ function* getProductInfo(action) {
         $(e).attr('src', $(e).data('src'));
       });
 
+    // 비디오 불러오기
+    yield $('div.premium-module-8-hero-video').each((index, item) => {
+      const src = $(item)
+        .find('script')
+        .filter((index, item) => item.firstChild)
+        .map((index, item) =>
+          item.firstChild.data.match(
+            /https:\/\/m\.media-amazon\.com\/images\/S\/aplus-media\/vc\/\S*.mp4/gm,
+          ),
+        );
+      $(item).after(
+        `<video controls="controls" src=${src[0]} preload="auto"></video>`,
+      );
+      $(item).remove();
+    });
+
     yield put({
       type: PRODUCT_INFORMATION_SUCCESS,
       data: {
@@ -106,7 +122,7 @@ function* getProductInfo(action) {
 }
 
 function* watchProductInfo() {
-  yield takeEvery(PRODUCT_INFORMATION_REQUEST, getProductInfo);
+  yield takeLatest(PRODUCT_INFORMATION_REQUEST, getProductInfo);
 }
 
 function getOptionAPI(data) {
@@ -135,7 +151,7 @@ function* getOptionInfo(action) {
 }
 
 function* watchOptionInfo() {
-  yield takeEvery(PRODUCT_OPTION_INFORMATION_REQUEST, getOptionInfo);
+  yield takeLatest(PRODUCT_OPTION_INFORMATION_REQUEST, getOptionInfo);
 }
 
 export default function* productSaga() {

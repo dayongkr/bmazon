@@ -40,6 +40,14 @@ app.prepare().then(() => {
     return app.render(req, res, '/product', { asin: req.params.asin });
   });
 
+  server.get('/dp/:asin', (req, res) => {
+    return app.render(req, res, '/product', { asin: req.params.asin });
+  });
+
+  server.get('/productList/:value', (req, res) => {
+    return app.render(req, res, '/productList', { value: req.params.value });
+  });
+
   server.use('/api/product', productAPIRouter);
 
   server.get('*', (req, res) => {
