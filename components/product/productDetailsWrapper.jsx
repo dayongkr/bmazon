@@ -55,6 +55,7 @@ const ProductDetailsWrapper = () => {
       <ProductPrice>
         <span className="main">
           {price && rate && `₩${formattingComma(price * rate, true)}`}
+          {name && !price && '구매불가 상품입니다.'}
         </span>
         <span className="sub">{price && `\$${formattingComma(price)}`}</span>
       </ProductPrice>

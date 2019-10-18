@@ -1,10 +1,8 @@
 export const initialState = {
-  exchange: {
-    rate: '',
-    date: '',
-    time: '',
-    provider: '',
-  },
+  rate: '',
+  date: '',
+  time: '',
+  provider: '',
 };
 
 export const EXCHANGE_RATE_REQUEST = 'EXCHANGE_RATE_REQUEST';

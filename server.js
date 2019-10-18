@@ -7,6 +7,7 @@ const dotenv = require('dotenv');
 const compression = require('compression');
 
 const productAPIRouter = require('./routes/product');
+const productListAPIRouter = require('./routes/productList');
 
 const dev = process.env.NODE_ENV !== 'production';
 const prod = process.env.NODE_ENV === 'production';
@@ -49,6 +50,7 @@ app.prepare().then(() => {
   });
 
   server.use('/api/product', productAPIRouter);
+  server.use('/api/productList', productListAPIRouter);
 
   server.get('*', (req, res) => {
     return handle(req, res);

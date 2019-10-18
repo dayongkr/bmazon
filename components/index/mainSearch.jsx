@@ -15,11 +15,7 @@ const MainSearch = ({ defaultValue = '', iconColor = 'default' }) => {
       if (value.match(/B\w{9}(?=\b)/)) {
         router.push(`/product/${value.match(/B\w{9}(?=\b)/)[0]}`);
       } else if (!value.match(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g) && value) {
-        router.push(
-          `/productList/${encodeURIComponent(
-            value.replace(/\s+/g, 'DAYONGBZ0920'),
-          ).replace(/DAYONGBZ0920/g, '+')}`,
-        );
+        router.push(`/productList/${encodeURIComponent(value)}`);
       } else {
         console.log('error');
       }

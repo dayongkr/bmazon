@@ -49,18 +49,20 @@ function* getProductInfo(action) {
       });
 
     yield (() => {
-      options.listName = optionDatas['mobile-twister-dim-list'].key;
-      options.listValue = optionDatas['mobile-twister-dim-val-list'];
-      const key = Object.keys(
-        optionDatas['mobile-twister-dims-to-asin-list'],
-      ).map(item => item.match(/(\d)/g));
-      const value = Object.values(
-        optionDatas['mobile-twister-dims-to-asin-list'],
-      );
-      options.option = key.map((item, index) => ({
-        asin: value[index],
-        list: item,
-      }));
+      if (optionDatas['mobile-twister-dim-list']) {
+        options.listName = optionDatas['mobile-twister-dim-list'].key;
+        options.listValue = optionDatas['mobile-twister-dim-val-list'];
+        const key = Object.keys(
+          optionDatas['mobile-twister-dims-to-asin-list'],
+        ).map(item => item.match(/(\d)/g));
+        const value = Object.values(
+          optionDatas['mobile-twister-dims-to-asin-list'],
+        );
+        options.option = key.map((item, index) => ({
+          asin: value[index],
+          list: item,
+        }));
+      }
     })();
 
     // 늦게 로딩되는 이미지 로딩
@@ -85,8 +87,6 @@ function* getProductInfo(action) {
             /https:\/\/m\.media-amazon\.com\/images\/S\/aplus-media\/vc\/\S*.jpg/,
           ),
         ]);
-      console.log(src);
-
       $(item).after(
         `<video controls preload="metadata" poster=${src[1]}><source src=${
           src[0]
@@ -98,16 +98,41 @@ function* getProductInfo(action) {
     yield put({
       type: PRODUCT_INFORMATION_SUCCESS,
       data: {
-        imageUrl: $('img#main-image').data('a-hires'),
+        imageUrl:
+          $('img#main-image').data('a-hires') ||
+          Object.keys(
+            $('div#aw-image-block div.aw-product-image img').data(
+              'a-dynamic-image',
+            ),
+          )[0].replace(/(._.*_)/, '') ||
+          $('div#aw-image-block div.aw-product-image img').attr('src'),
         price:
           $('div#cerberus-data-metrics').data('asin-price') ||
           $('#priceblock_ourprice')
             .text()
             .trim()
-            .substring(1),
-        name: $('span#title')
-          .text()
-          .trim(),
+            .substring(1) ||
+          $('div#usedBuyBoxPrice_feature_div > div.a-spacing-none > span')
+            .filter(
+              (index, item) =>
+                $(item)
+                  .text()
+                  .trim() !== '$',
+            )
+            .map((index, item) =>
+              $(item)
+                .text()
+                .trim(),
+            )
+            .get()
+            .join('.'),
+        name:
+          $('span#title')
+            .text()
+            .trim() ||
+          $('h1#product-title')
+            .text()
+            .trim(),
         category: category,
         details:
           $('div#aplus3p_feature_div').length !== 0
@@ -117,7 +142,7 @@ function* getProductInfo(action) {
             : $('div#aplus_feature_div')
                 .children('div')
                 .html(),
-        options: options,
+        options: options.option.length !== 0 ? options : null,
       },
     });
   } catch (e) {
@@ -150,7 +175,7 @@ function* getOptionInfo(action) {
       },
     });
   } catch (e) {
-    console.log(e);
+    console.error(e);
     yield put({
       type: PRODUCT_OPTION_INFORMATION_FAILURE,
     });

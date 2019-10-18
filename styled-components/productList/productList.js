@@ -72,11 +72,12 @@ export const ProductItemWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 110px;
   }
 
   & .productImage img {
     max-width: 100%;
-    height: 110px;
+    max-height: 110px;
   }
 
   & .category {
@@ -90,7 +91,7 @@ export const ProductItemWrapper = styled.div`
     line-height: 1.2em;
     margin: 5px 0;
     font-size: 14px;
-    max-height: 30px;
+    height: 33px;
     overflow: hidden;
     text-overflow: ellipsis;
     word-break: break-all;
@@ -99,6 +100,10 @@ export const ProductItemWrapper = styled.div`
     display: box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
+  }
+
+  & .price {
+    font-size: 14px;
   }
 
   & .others {

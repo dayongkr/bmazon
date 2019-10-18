@@ -1,13 +1,12 @@
 export const initialState = {
-  product: {
-    imageUrl: '',
-    url: '',
-    asin: '',
-    name: '',
-    price: '',
-    category: [],
-    details: '',
-  },
+  imageUrl: '',
+  url: '',
+  asin: '',
+  name: '',
+  price: '',
+  category: [],
+  details: '',
+  options: null,
 };
 
 export const PRODUCT_INFORMATION_REQUEST = 'PRODUCT_INFORMATION_REQUEST';
