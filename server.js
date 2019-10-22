@@ -24,6 +24,8 @@ const lex = require('greenlock-express').create({
   renewBy: 80 * 24 * 60 * 60 * 1000,
 });
 const https = require('https');
+const http = require('http');
+
 const productAPIRouter = require('./routes/product');
 const productListAPIRouter = require('./routes/productList');
 
@@ -85,11 +87,11 @@ app.prepare().then(() => {
   server.get('*', (req, res) => {
     return handle(req, res);
   });
+
   https
     .createServer(lex.httpsOptions, lex.middleware(server))
     .listen(process.env.SSL_PORT || 443);
-
-  server.listen(80, () => {
-    console.log('next+express running on port 80');
-  });
+  http
+    .createServer(lex.middleware(require('redirect-https')()))
+    .listen(process.env.PORT || 80);
 });
