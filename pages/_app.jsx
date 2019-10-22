@@ -31,7 +31,6 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const App = ({ Component, store, pageProps }) => {
-  console.log(pageProps);
   return (
     <>
       <Provider store={store}>

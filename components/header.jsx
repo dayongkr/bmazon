@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -7,7 +7,6 @@ import { Nav, SearchWrapper } from '../styled-components/header';
 
 const Header = ({ pageProps }) => {
   const router = useRouter();
-  console.log(router.pathname);
   return (
     <Nav>
       <Link href="/" prefetch={false}>
