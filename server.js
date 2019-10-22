@@ -38,15 +38,15 @@ app.prepare().then(() => {
       },
     }),
   );
-  (async () => {
-    try {
-      puppeteer.use(pluginStealth());
-      const browser = await puppeteer.launch({ headless: true });
-      module.exports.browser = browser;
-    } catch (e) {
-      console.error(e);
-    }
-  })();
+  // (async () => {
+  //   try {
+  //     puppeteer.use(pluginStealth());
+  //     const browser = await puppeteer.launch({ headless: true });
+  //     module.exports.browser = browser;
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  // })();
 
   server.get('/product/:asin', (req, res) => {
     return app.render(req, res, '/product', { asin: req.params.asin });
