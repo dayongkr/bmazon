@@ -39,9 +39,13 @@ app.prepare().then(() => {
     }),
   );
   (async () => {
-    puppeteer.use(pluginStealth());
-    const browser = await puppeteer.launch({ headless: true });
-    module.exports.browser = browser;
+    try {
+      puppeteer.use(pluginStealth());
+      const browser = await puppeteer.launch({ headless: true });
+      module.exports.browser = browser;
+    } catch (e) {
+      console.error(e);
+    }
   })();
 
   server.get('/product/:asin', (req, res) => {
