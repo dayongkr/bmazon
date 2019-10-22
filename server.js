@@ -7,7 +7,23 @@ const dotenv = require('dotenv');
 const compression = require('compression');
 const puppeteer = require('puppeteer-extra');
 const pluginStealth = require('puppeteer-extra-plugin-stealth');
-
+const lex = require('greenlock-express').create({
+  version: 'draft-11',
+  configDir: '/etc/letsencrypt',
+  server: 'https://acme-v02.api.letsencrypt.org/directory',
+  approveDomains: (opts, certs, cb) => {
+    if (certs) {
+      opts.domains = ['dayongbz.xyz', 'www.dayongbz.xyz'];
+    } else {
+      opts.email = 'dayongbz@gmail.com';
+      opts.agreeTos = true;
+    }
+    cb(null, { options: opts, certs });
+  },
+  renewWithin: 81 * 24 * 60 * 60 * 1000,
+  renewBy: 80 * 24 * 60 * 60 * 1000,
+});
+const https = require('https');
 const productAPIRouter = require('./routes/product');
 const productListAPIRouter = require('./routes/productList');
 
@@ -69,6 +85,9 @@ app.prepare().then(() => {
   server.get('*', (req, res) => {
     return handle(req, res);
   });
+  https
+    .createServer(lex.httpsOptions, lex.middleware(server))
+    .listen(process.env.SSL_PORT || 443);
 
   server.listen(80, () => {
     console.log('next+express running on port 80');

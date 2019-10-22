@@ -20,6 +20,8 @@
     "express": "^4.17.1",
     "express-session": "^1.16.2",
     "firebase": "^7.2.1",
+    "greenlock-express": "^2.7.18",
+    "greenlock-store-fs": "^3.0.2",
     "https-proxy-agent": "^3.0.0",
     "morgan": "^1.9.1",
     "next": "^9.0.7",
