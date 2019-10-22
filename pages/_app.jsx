@@ -1,5 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
+import dynamic from 'next/dynamic';
 import withRedux from 'next-redux-wrapper';
 import withReduxSaga from 'next-redux-saga';
 import { applyMiddleware, compose, createStore } from 'redux';
@@ -10,7 +11,9 @@ import { createGlobalStyle } from 'styled-components';
 import rootSaga from '../sagas';
 import reducer from '../reducers';
 
-import UseEffect_app from '../components/useEffect_app';
+const UseEffect_app = dynamic(import('../components/useEffect_app'), {
+  ssr: false,
+});
 import ResetStyle from '../styled-components/resetStyle';
 import Header from '../components/header';
 

@@ -57,7 +57,7 @@ const ProductDetails = styled.div`
 const ProductShowWrapper = ({ src, title = '상품이름', price = '17' }) => {
   const url = 'https://amazon.com/dp/B07G74V1YP';
   return (
-    <Link href={`/product/${url.match(/\/dp\/(\w+)/)[1]}`}>
+    <Link href={`/product/${url.match(/\/dp\/(\w+)/)[1]}`} prefetch={false}>
       <ProductShowWrapperStyled>
         <div
           className="productImage"

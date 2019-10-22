@@ -97,7 +97,7 @@ const Header = () => {
         width="25"
         alt="메뉴버튼"
       ></img>
-      <Link href="/">
+      <Link href="/" prefetch={false}>
         <img
           id="logoImage"
           src="/static/images/logo.png"
