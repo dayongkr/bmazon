@@ -1,22 +1,48 @@
 const express = require('express');
-const axios = require('axios');
+const devices = require('puppeteer/DeviceDescriptors');
 
-const userAgentList = require('../user-agent');
+const server = require('../server');
+
+const phone = [
+  'iPhone 6 Plus',
+  'iPhone 6',
+  'iPhone 7',
+  'iPhone 7 Plus',
+  'iPhone 8',
+  'iPhone 8 Plus',
+  'iPhone SE',
+  'iPhone X',
+  'iPhone XR',
+  'Pixel 2 XL',
+  'Pixel 2',
+  'Galaxy S5',
+];
 
 const router = express.Router();
 
 router.get('/:value', async (req, res, next) => {
   try {
-    const html = await axios.get(
-      `https://www.amazon.com/s?k=${req.params.value}`,
-      {
-        headers: {
-          'User-Agent':
-            'Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.96 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
-        },
-      },
+    const page = await server.browser.newPage();
+    await page.setRequestInterception(true);
+    page.on('request', req => {
+      switch (req.resourceType()) {
+        case 'stylesheet':
+        case 'font':
+        case 'image':
+          req.abort();
+          break;
+        default:
+          req.continue();
+          break;
+      }
+    });
+    await page.emulate(
+      devices[phone[Math.floor(Math.random() * phone.length)]],
     );
-    res.send(html.data);
+    await page.goto(`https://www.amazon.com/s?k=${req.params.value}`);
+    const html = await page.content();
+    res.send(html);
+    await page.close();
   } catch (e) {
     console.error(e);
     next(e);

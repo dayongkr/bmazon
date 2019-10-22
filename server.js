@@ -5,6 +5,8 @@ const cookieParser = require('cookie-parser');
 const expressSession = require('express-session');
 const dotenv = require('dotenv');
 const compression = require('compression');
+const puppeteer = require('puppeteer-extra');
+const pluginStealth = require('puppeteer-extra-plugin-stealth');
 
 const productAPIRouter = require('./routes/product');
 const productListAPIRouter = require('./routes/productList');
@@ -36,6 +38,11 @@ app.prepare().then(() => {
       },
     }),
   );
+  (async () => {
+    puppeteer.use(pluginStealth());
+    const browser = await puppeteer.launch({ headless: true });
+    module.exports.browser = browser;
+  })();
 
   server.get('/product/:asin', (req, res) => {
     return app.render(req, res, '/product', { asin: req.params.asin });
