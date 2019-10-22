@@ -1,7 +1,5 @@
 const express = require('express');
 const devices = require('puppeteer/DeviceDescriptors');
-const puppeteer = require('puppeteer-extra');
-const pluginStealth = require('puppeteer-extra-plugin-stealth');
 
 const server = require('../server');
 
@@ -24,12 +22,7 @@ const router = express.Router();
 
 router.get('/:asin', async (req, res, next) => {
   try {
-    puppeteer.use(pluginStealth());
-    const browser = await puppeteer.launch({
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    });
-    const page = await browser.newPage();
+    const page = await server.browser.newPage();
     await page.setRequestInterception(true);
     page.on('request', req => {
       switch (req.resourceType()) {
@@ -50,7 +43,6 @@ router.get('/:asin', async (req, res, next) => {
     const html = await page.content();
     res.send(html);
     await page.close();
-    await browser.close();
   } catch (e) {
     console.error(e);
     next(e);
