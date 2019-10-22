@@ -31,6 +31,7 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const App = ({ Component, store, pageProps }) => {
+  console.log(pageProps);
   return (
     <>
       <Provider store={store}>
@@ -43,8 +44,8 @@ const App = ({ Component, store, pageProps }) => {
             rel="stylesheet"
           ></link>
         </Head>
-        <Header></Header>
-        <div id="mainWrapper" style={{ marginTop: '40px' }}>
+        <Header pageProps={pageProps}></Header>
+        <div id="mainWrapper">
           <UseEffect_app>
             <Component {...pageProps}></Component>
           </UseEffect_app>

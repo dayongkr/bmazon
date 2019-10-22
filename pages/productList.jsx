@@ -24,14 +24,8 @@ const ProductList = ({ value }) => {
   }, []);
   return (
     <>
-      <MainNav ref={navRef}>
-        <SearchStyled>
-          <MainSearch iconColor="gray" defaultValue={value}></MainSearch>
-        </SearchStyled>
-      </MainNav>
-      <ProductListWrapper
-        navHeight={(navRef.current ? navRef.current.clientHeight : 80) + 40}
-      >
+      {/* <MainNav ref={navRef}></MainNav> */}
+      <ProductListWrapper>
         {items &&
           items.map(item => (
             <ProductItem

@@ -1,12 +1,8 @@
 import styled from 'styled-components';
 
 export const MainNav = styled.nav`
-  position: fixed;
-  left: 0;
-  right: 0;
   padding: 20px;
   top: 40px;
-  z-index: 100;
   background-color: white;
   border-radius: 0 0 5px 5px;
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
@@ -55,7 +51,6 @@ export const SearchStyled = styled.div`
 export const ProductListWrapper = styled.div`
   background-color: white;
   padding: 20px;
-  margin-top: ${props => props.navHeight}px;
   display: flex;
   flex-direction: raw;
   flex-wrap: wrap;

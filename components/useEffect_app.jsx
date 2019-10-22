@@ -21,7 +21,9 @@ const UseEffect_app = ({ children }) => {
       messagingSenderId: '439174130509',
       appID: '1:439174130509:web:dd773118ff730a57e4e50',
     };
-    firebase.initializeApp(firebaseConfig);
+    if (!firebase.app.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
 
     ChannelService.boot({
       pluginKey: '45da7edc-b6ce-44bb-a19d-629209caceae',

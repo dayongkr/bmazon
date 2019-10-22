@@ -6,6 +6,7 @@ export const ProductMainImageWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
 
   & #productMainImage {
     max-width: 100%;

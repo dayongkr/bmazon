@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const ProductDetailsWrapperStyled = styled.div`
   width: 100%;
   position: relative;
-  padding: 25px 20px 20px;
+  padding: 10px 20px 20px;
 
   & .title {
     font-size: 18px;
