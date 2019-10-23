@@ -22,13 +22,18 @@ const lex = require('greenlock-express').create({
   },
   renewWithin: 81 * 24 * 60 * 60 * 1000,
   renewBy: 80 * 24 * 60 * 60 * 1000,
+  store: require('greenlock-store-fs'),
 });
 const https = require('https');
 const http = require('http');
 const fs = require('fs');
+const cheerio = require('cheerio');
+const axios = require('axios');
 
 const productAPIRouter = require('./routes/product');
 const productListAPIRouter = require('./routes/productList');
+const testAPIRouter = require('./routes/test');
+const ppomSale = require('./function/ppomSale');
 
 const dev = process.env.NODE_ENV !== 'production';
 const prod = process.env.NODE_ENV === 'production';
@@ -45,6 +50,8 @@ dotenv.config();
 
 app.prepare().then(() => {
   const server = express();
+  let cacheItem =
+    '[CDW] HP ProDesk 405 G4 Mini Desktop: Ryzen 5 Pro 2400GE, 8GB DDR4, 256GB SSD (299/무료)';
 
   server.use(compression());
   server.use(morgan('dev'));
@@ -70,6 +77,9 @@ app.prepare().then(() => {
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
       });
       module.exports.browser = browser;
+      if (!dev) {
+        setInterval(ppomSale(cacheItem), 5000); // 뽐뿌 할인 5초간 확인
+      }
     } catch (e) {
       console.error(e);
     }
@@ -89,6 +99,7 @@ app.prepare().then(() => {
 
   server.use('/api/product', productAPIRouter);
   server.use('/api/productList', productListAPIRouter);
+  server.use('/api/test', testAPIRouter);
 
   server.get('*', (req, res) => {
     return handle(req, res);
