@@ -50,8 +50,7 @@ dotenv.config();
 
 app.prepare().then(() => {
   const server = express();
-  let cacheItem =
-    '[CDW] HP ProDesk 405 G4 Mini Desktop: Ryzen 5 Pro 2400GE, 8GB DDR4, 256GB SSD (299/무료)';
+  let cacheItem = 107733;
 
   server.use(compression());
   server.use(morgan('dev'));
@@ -77,9 +76,7 @@ app.prepare().then(() => {
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
       });
       module.exports.browser = browser;
-      if (!dev) {
-        setInterval(ppomSale(cacheItem), 5000); // 뽐뿌 할인 5초간 확인
-      }
+      setInterval(ppomSale(cacheItem, dev), 10000); // 뽐뿌 할인 5초간 확인
     } catch (e) {
       console.error(e);
     }
