@@ -72,7 +72,7 @@ const ProductShowWrapper = ({ src, title = '상품이름', price = '17' }) => {
           <p className="price">{`\$${formattingComma(price)}`}</p>
         </ProductDetails>
         <img
-          src="http://pngimg.com/uploads/amazon/amazon_PNG5.png"
+          src="https://pngimg.com/uploads/amazon/amazon_PNG5.png"
           width="25"
           alt="아마존 로고"
           className="shoppingLogoImage"

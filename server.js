@@ -25,6 +25,7 @@ const lex = require('greenlock-express').create({
 });
 const https = require('https');
 const http = require('http');
+const fs = require('fs');
 
 const productAPIRouter = require('./routes/product');
 const productListAPIRouter = require('./routes/productList');
@@ -34,6 +35,11 @@ const prod = process.env.NODE_ENV === 'production';
 
 const app = next({ dev });
 const handle = app.getRequestHandler();
+
+const devOption = {
+  key: fs.readFileSync('localhost.key'),
+  cert: fs.readFileSync('localhost.crt'),
+};
 
 dotenv.config();
 
@@ -88,10 +94,17 @@ app.prepare().then(() => {
     return handle(req, res);
   });
 
-  https
-    .createServer(lex.httpsOptions, lex.middleware(server))
-    .listen(process.env.SSL_PORT || 443);
-  http
-    .createServer(lex.middleware(require('redirect-https')()))
-    .listen(process.env.PORT || 80);
+  if (dev) {
+    server.listen(80, () => {
+      console.log('next+express running on port 80');
+    });
+    https.createServer(devOption, server).listen(process.env.SSL_PORT || 443);
+  } else {
+    http
+      .createServer(lex.middleware(require('redirect-https')()))
+      .listen(process.env.PORT || 80);
+    https
+      .createServer(lex.httpsOptions, lex.middleware(server))
+      .listen(process.env.SSL_PORT || 443);
+  }
 });
