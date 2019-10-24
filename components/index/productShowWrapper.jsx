@@ -16,14 +16,14 @@ const ProductShowWrapperStyled = styled.div`
   }
 
   & .productImage {
-    width: 40px;
-    height: 40px;
-    background-repeat: none;
+    width: 50px;
+    height: 50px;
+    background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
     background-color: #eee;
     position: absolute;
-    left: 15px;
+    left: 10px;
     top: 0;
     bottom: 0;
     margin: auto;
@@ -32,7 +32,7 @@ const ProductShowWrapperStyled = styled.div`
 
 const ProductDetails = styled.div`
   position: absolute;
-  left: 70px;
+  left: 75px;
   right: 15px;
   top: 12.5px;
 

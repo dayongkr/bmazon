@@ -1,6 +1,7 @@
 import React from 'react';
 import Slider from 'react-slick';
 import styled from 'styled-components';
+import Head from 'next/head';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
@@ -39,58 +40,60 @@ const Slide = () => {
   };
 
   return (
-    <SliderStyled>
-      <Slider {...sliderSettings}>
-        <div>
-          <div
-            style={{
-              fontWeight: 'bold',
-              fontSize: '40px',
-              color: 'white',
-              textAlign: 'center',
-              lineHeight: '300px',
-              width: '100%',
-              height: '300px',
-              backgroundColor: '#333',
-            }}
-          >
-            슬라이드1
+    <>
+      <SliderStyled>
+        <Slider {...sliderSettings}>
+          <div>
+            <div
+              style={{
+                fontWeight: 'bold',
+                fontSize: '40px',
+                color: 'white',
+                textAlign: 'center',
+                lineHeight: '300px',
+                width: '100%',
+                height: '300px',
+                backgroundColor: '#333',
+              }}
+            >
+              슬라이드1
+            </div>
           </div>
-        </div>
-        <div>
-          <div
-            style={{
-              fontWeight: 'bold',
-              fontSize: '40px',
-              color: 'white',
-              textAlign: 'center',
-              lineHeight: '300px',
-              width: '100%',
-              height: '300px',
-              backgroundColor: '#333',
-            }}
-          >
-            슬라이드2
+          <div>
+            <div
+              style={{
+                fontWeight: 'bold',
+                fontSize: '40px',
+                color: 'white',
+                textAlign: 'center',
+                lineHeight: '300px',
+                width: '100%',
+                height: '300px',
+                backgroundColor: '#333',
+              }}
+            >
+              슬라이드2
+            </div>
           </div>
-        </div>
-        <div>
-          <div
-            style={{
-              fontWeight: 'bold',
-              fontSize: '40px',
-              color: 'white',
-              textAlign: 'center',
-              lineHeight: '300px',
-              width: '100%',
-              height: '300px',
-              backgroundColor: '#333',
-            }}
-          >
-            슬라이드3
+          <div>
+            <div
+              style={{
+                fontWeight: 'bold',
+                fontSize: '40px',
+                color: 'white',
+                textAlign: 'center',
+                lineHeight: '300px',
+                width: '100%',
+                height: '300px',
+                backgroundColor: '#333',
+              }}
+            >
+              슬라이드3
+            </div>
           </div>
-        </div>
-      </Slider>
-    </SliderStyled>
+        </Slider>
+      </SliderStyled>
+    </>
   );
 };
 

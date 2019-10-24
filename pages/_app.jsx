@@ -6,18 +6,16 @@ import withReduxSaga from 'next-redux-saga';
 import { applyMiddleware, compose, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
-import styled from 'styled-components';
 
 import rootSaga from '../sagas';
 import reducer from '../reducers';
+import '../public/static/empty.css';
 
 const UseEffect_app = dynamic(import('../components/useEffect_app'), {
   ssr: false,
 });
 import Header from '../components/header';
-
 import { createGlobalStyle } from 'styled-components';
-
 import ResetStyle from '../styled-components/resetStyle';
 
 const GlobalStyle = createGlobalStyle`

@@ -9,7 +9,7 @@ const Header = ({ pageProps }) => {
   const router = useRouter();
   return (
     <Nav>
-      <Link href="/">
+      <Link href="/" prefetch={false}>
         <div id="logoDummy" style={{ cursor: 'pointer' }}></div>
       </Link>
       <SearchWrapper>
