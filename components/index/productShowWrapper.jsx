@@ -33,6 +33,7 @@ const ProductShowWrapperStyled = styled.div`
 const ProductDetails = styled.div`
   position: absolute;
   left: 70px;
+  right: 15px;
   top: 12.5px;
 
   & .title {

@@ -9,8 +9,8 @@ const Header = ({ pageProps }) => {
   const router = useRouter();
   return (
     <Nav>
-      <Link href="/" prefetch={false}>
-        <div id="logoDummy"></div>
+      <Link href="/">
+        <div id="logoDummy" style={{ cursor: 'pointer' }}></div>
       </Link>
       <SearchWrapper>
         {router.pathname === '/productList' ? (
