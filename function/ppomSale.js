@@ -79,5 +79,5 @@ module.exports = (cacheItem, dev) => async () => {
       }
     }
   }
-  page.close();
+  await page.close();
 };

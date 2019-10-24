@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const ProductMainImageWrapper = styled.div`
-  height: 100vw;
   background-color: white;
   display: flex;
   justify-content: center;
@@ -21,6 +20,7 @@ export const ProductWrapper = styled.div`
 
 export const ProductBottomNavigation = styled.div`
   width: 100%;
+  max-width: 500px;
   height: 70px;
   background-color: white;
   box-shadow: 0px -3px 6px rgba(0, 0, 0, 0.1);

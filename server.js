@@ -27,8 +27,6 @@ const lex = require('greenlock-express').create({
 const https = require('https');
 const http = require('http');
 const fs = require('fs');
-const cheerio = require('cheerio');
-const axios = require('axios');
 
 const productAPIRouter = require('./routes/product');
 const productListAPIRouter = require('./routes/productList');
@@ -50,7 +48,7 @@ dotenv.config();
 
 app.prepare().then(() => {
   const server = express();
-  let cacheItem = 107733;
+  let cacheItem = 107744;
 
   server.use(compression());
   server.use(morgan('dev'));
@@ -68,7 +66,7 @@ app.prepare().then(() => {
       },
     }),
   );
-  (async () => {
+  const setupPuppeteer = async () => {
     try {
       puppeteer.use(pluginStealth());
       const browser = await puppeteer.launch({
@@ -76,11 +74,16 @@ app.prepare().then(() => {
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
       });
       module.exports.browser = browser;
-      setInterval(ppomSale(cacheItem, dev), 10000); // 뽐뿌 할인 5초간 확인
+      ppomSale(cacheItem, dev);
+      setInterval(ppomSale(cacheItem, dev), 60000); // 뽐뿌 할인 5초간 확인
+      browser.on('disconnected', setupPuppeteer);
+      console.log(`Started Puppeteer with pid ${browser.process().pid}`);
     } catch (e) {
       console.error(e);
     }
-  })();
+  };
+
+  setupPuppeteer();
 
   server.get('/product/:asin', (req, res) => {
     return app.render(req, res, '/product', { asin: req.params.asin });

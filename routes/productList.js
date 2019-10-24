@@ -1,5 +1,6 @@
 const express = require('express');
 const devices = require('puppeteer/DeviceDescriptors');
+const apicache = require('apicache');
 
 const server = require('../server');
 
@@ -19,8 +20,9 @@ const phone = [
 ];
 
 const router = express.Router();
+const cache = apicache.middleware;
 
-router.get('/:value', async (req, res, next) => {
+router.get('/:value', cache('3 minutes'), async (req, res, next) => {
   try {
     const page = await server.browser.newPage();
     await page.setRequestInterception(true);

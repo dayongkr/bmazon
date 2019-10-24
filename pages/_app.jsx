@@ -6,7 +6,6 @@ import withReduxSaga from 'next-redux-saga';
 import { applyMiddleware, compose, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
-import { createGlobalStyle } from 'styled-components';
 
 import rootSaga from '../sagas';
 import reducer from '../reducers';
@@ -14,37 +13,26 @@ import reducer from '../reducers';
 const UseEffect_app = dynamic(import('../components/useEffect_app'), {
   ssr: false,
 });
-import ResetStyle from '../styled-components/resetStyle';
 import Header from '../components/header';
-
-const GlobalStyle = createGlobalStyle`
-  * {
-    box-sizing: border-box;
-  }
-
-  body {
-    background-color: #eee;
-    color: #333;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-weight: normal;
-  }
-`;
 
 const App = ({ Component, store, pageProps }) => {
   return (
     <>
       <Provider store={store}>
-        <GlobalStyle></GlobalStyle>
-        <ResetStyle></ResetStyle>
         <Head>
           <title>bmazon</title>
-          <link
-            href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&display=swap"
-            rel="stylesheet"
-          ></link>
         </Head>
-        <Header pageProps={pageProps}></Header>
-        <div id="mainWrapper">
+        <div
+          style={{
+            maxWidth: '500px',
+            margin: 'auto',
+            backgroundColor: '#eee',
+            overflow: 'auto',
+            height: '100vh',
+            boxShadow: '0 3px 6px rgba(0,0,0,0.1)',
+          }}
+        >
+          <Header pageProps={pageProps}></Header>
           <UseEffect_app>
             <Component {...pageProps}></Component>
           </UseEffect_app>

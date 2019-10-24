@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import Head from 'next/head';
+import styled from 'styled-components';
 
 import ProductDetailsWrapper from '../components/product/productDetailsWrapper';
 import ProductMainNavigation from '../components/product/productMainNavigation';
@@ -13,8 +15,15 @@ import {
   ProductDetailInfoWrapper,
 } from '../styled-components/product/product';
 
+const Div = styled.div`
+  background-color: #eee;
+  max-height: 500px;
+  width: 100%;
+  height: 100vw;
+`;
+
 const Product = ({ asin }) => {
-  const { imageUrl, details } = useSelector(state => state.product);
+  const { imageUrl, details, name } = useSelector(state => state.product);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -28,10 +37,17 @@ const Product = ({ asin }) => {
   }, []);
   return (
     <>
-      <ProductMainImageWrapper>
-        {imageUrl && <img src={imageUrl} id="productMainImage"></img>}
-      </ProductMainImageWrapper>
+      <Head>
+        <title>bmazon{name && `-${name}`}</title>
+      </Head>
 
+      {imageUrl ? (
+        <ProductMainImageWrapper>
+          <img src={imageUrl} id="productMainImage"></img>
+        </ProductMainImageWrapper>
+      ) : (
+        <Div></Div>
+      )}
       <ProductWrapper>
         <ProductDetailsWrapper></ProductDetailsWrapper>
         <ProductMainNavigation></ProductMainNavigation>

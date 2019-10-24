@@ -143,6 +143,22 @@ function* getProductInfo(action) {
                 .children('div')
                 .html(),
         options: options.option.length !== 0 ? options : null,
+        ship: $('span.a-declarative')
+          .filter(
+            (index, item) =>
+              $(item).data('a-secondary-view') &&
+              $(item).data('a-secondary-view').name === 'agShipMsgSecView',
+          )
+          .text()
+          ? +$('span.a-declarative')
+              .filter(
+                (index, item) =>
+                  $(item).data('a-secondary-view') &&
+                  $(item).data('a-secondary-view').name === 'agShipMsgSecView',
+              )
+              .text()
+              .match(/\$([\d\.]*)/)[1]
+          : null,
       },
     });
   } catch (e) {
@@ -165,7 +181,6 @@ function* getOptionInfo(action) {
   try {
     let data = yield call(getOptionAPI, action.data);
     data = yield data.data.filter(item => item.asin === action.data.asin)[0];
-    console.log(data, action.data.asin, action.data.index);
     yield put({
       type: PRODUCT_OPTION_INFORMATION_SUCCESS,
       data: {

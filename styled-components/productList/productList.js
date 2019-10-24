@@ -86,7 +86,7 @@ export const ProductItemWrapper = styled.div`
     line-height: 1.2em;
     margin: 5px 0;
     font-size: 14px;
-    height: 33px;
+    height: 33.5px;
     overflow: hidden;
     text-overflow: ellipsis;
     word-break: break-all;

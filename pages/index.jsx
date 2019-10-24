@@ -1,22 +1,74 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+// import { firestore } from 'firebase';
 
 import NoticeBar from '../components/index/noticeBar';
 import SubWrapper from '../components/index/subWrapper';
 import ExchangeRateInput from '../components/index/exchangeRateInput';
 import ProductShowWrapper from '../components/index/productShowWrapper';
 
+const dummy = [
+  {
+    name:
+      'Over Ear Headphone, Wired Premium Stereo Sound Headsets with 50mm Driver, Foldable Comfortable Headphones with Protein Earmuffs and Shareport for Recording Monitoring Podcast PC TV- with Mic (Silver)',
+    asin: 'B07G74V1YP',
+    price: 39.99,
+    img:
+      'https://images-na.ssl-images-amazon.com/images/I/410eGsXZhPL._AC_SY400_.jpg',
+  },
+  {
+    name:
+      'Over Ear Headphone, Wired Premium Stereo Sound Headsets with 50mm Driver, Foldable Comfortable Headphones with Protein Earmuffs and Shareport for Recording Monitoring Podcast PC TV- with Mic (Silver)',
+    asin: 'B07G74V1YP',
+    price: 39.99,
+    img:
+      'https://images-na.ssl-images-amazon.com/images/I/410eGsXZhPL._AC_SY400_.jpg',
+  },
+  {
+    name:
+      'Over Ear Headphone, Wired Premium Stereo Sound Headsets with 50mm Driver, Foldable Comfortable Headphones with Protein Earmuffs and Shareport for Recording Monitoring Podcast PC TV- with Mic (Silver)',
+    asin: 'B07G74V1YP',
+    price: 39.99,
+    img:
+      'https://images-na.ssl-images-amazon.com/images/I/410eGsXZhPL._AC_SY400_.jpg',
+  },
+  {
+    name:
+      'Over Ear Headphone, Wired Premium Stereo Sound Headsets with 50mm Driver, Foldable Comfortable Headphones with Protein Earmuffs and Shareport for Recording Monitoring Podcast PC TV- with Mic (Silver)',
+    asin: 'B07G74V1YP',
+    price: 39.99,
+    img:
+      'https://images-na.ssl-images-amazon.com/images/I/410eGsXZhPL._AC_SY400_.jpg',
+  },
+  {
+    name:
+      'Over Ear Headphone, Wired Premium Stereo Sound Headsets with 50mm Driver, Foldable Comfortable Headphones with Protein Earmuffs and Shareport for Recording Monitoring Podcast PC TV- with Mic (Silver)',
+    asin: 'B07G74V1YP',
+    price: 39.99,
+    img:
+      'https://images-na.ssl-images-amazon.com/images/I/410eGsXZhPL._AC_SY400_.jpg',
+  },
+];
+
 const Home = () => {
   const { rate, date, time, provider } = useSelector(state => state.exchange);
+
+  useEffect(() => {}, []);
 
   return (
     <>
       <div style={{ height: '200px', backgroundColor: '#333' }}></div>
       <NoticeBar text="2019년 12월 21일 서비스 점검이 있습니다."></NoticeBar>
-      <SubWrapper title="주간 인기상품">
-        <ProductShowWrapper></ProductShowWrapper>
-        <ProductShowWrapper></ProductShowWrapper>
-        <ProductShowWrapper></ProductShowWrapper>
+      <SubWrapper title="MD 추천상품">
+        {dummy.map((item, index) => (
+          <ProductShowWrapper
+            key={item.asin + index}
+            name={item.name}
+            asin={item.asin}
+            price={item.price}
+            img={item.img}
+          ></ProductShowWrapper>
+        ))}
       </SubWrapper>
       <SubWrapper title="환율">
         {rate && <ExchangeRateInput rate={rate}></ExchangeRateInput>}

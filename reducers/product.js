@@ -1,12 +1,13 @@
 export const initialState = {
-  imageUrl: '',
-  url: '',
-  asin: '',
-  name: '',
-  price: '',
-  category: [],
-  details: '',
+  imageUrl: null,
+  url: null,
+  asin: null,
+  name: null,
+  price: null,
+  category: null,
+  details: null,
   options: null,
+  ship: null,
 };
 
 export const PRODUCT_INFORMATION_REQUEST = 'PRODUCT_INFORMATION_REQUEST';
@@ -39,6 +40,7 @@ export default (state = initialState, action) => {
         category: action.data.category,
         details: action.data.details,
         options: action.data.options,
+        ship: action.data.ship,
       };
     }
     case PRODUCT_INFORMATION_FAILURE: {
@@ -49,13 +51,14 @@ export default (state = initialState, action) => {
     case PRODUCT_INFORMATION_RESET: {
       return {
         ...state,
-        imageUrl: '',
-        url: '',
-        asin: '',
-        name: '',
-        price: '',
-        category: [],
-        details: '',
+        imageUrl: null,
+        url: null,
+        asin: null,
+        name: null,
+        price: null,
+        category: null,
+        details: null,
+        ship: null,
       };
     }
     case PRODUCT_OPTION_INFORMATION_REQUEST: {

@@ -16,20 +16,14 @@ const ProductShowWrapperStyled = styled.div`
   }
 
   & .productImage {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     background-repeat: none;
     background-position: center;
     background-size: cover;
     background-color: #eee;
     position: absolute;
-    left: 10px;
-    top: 12.5px;
-  }
-
-  & .shoppingLogoImage {
-    position: absolute;
-    right: 15px;
+    left: 15px;
     top: 0;
     bottom: 0;
     margin: auto;
@@ -54,29 +48,18 @@ const ProductDetails = styled.div`
   }
 `;
 
-const ProductShowWrapper = ({ src, title = '상품이름', price = '17' }) => {
-  const url = 'https://amazon.com/dp/B07G74V1YP';
+const ProductShowWrapper = ({ img, name, price, asin }) => {
   return (
-    <Link href={`/product/${url.match(/\/dp\/(\w+)/)[1]}`} prefetch={false}>
+    <Link href={`/product/${asin}`} prefetch={false}>
       <ProductShowWrapperStyled>
         <div
           className="productImage"
-          style={
-            src
-              ? { backgroundImage: `url(${src})` }
-              : { backgroundImage: 'none' }
-          }
+          style={{ backgroundImage: `url(${img})` }}
         ></div>
         <ProductDetails>
-          <p className="title">{title}</p>
+          <p className="title">{`${name.substring(0, 50)}...`}</p>
           <p className="price">{`\$${formattingComma(price)}`}</p>
         </ProductDetails>
-        <img
-          src="https://pngimg.com/uploads/amazon/amazon_PNG5.png"
-          width="25"
-          alt="아마존 로고"
-          className="shoppingLogoImage"
-        ></img>
       </ProductShowWrapperStyled>
     </Link>
   );

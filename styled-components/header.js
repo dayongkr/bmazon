@@ -61,7 +61,7 @@ export const SearchWrapper = styled.div`
   }
 
   & #mainSearch::placeholder {
-    opacity: 0.5;
+    opacity: 0.8;
     font-size: 12px;
   }
 `;

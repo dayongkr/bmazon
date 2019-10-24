@@ -58,14 +58,20 @@ export const ExchangeRateDate = styled.p`
 `;
 
 export const ShipPrice = styled.p`
-  font-size: 12px;
+  font-size: 14px;
   color: #999;
-  margin: 5px 0 0;
+  margin: 5px 0 10px;
 
   & .main {
-    color: #999;
+    font-size: 18px;
+    color: #666;
     font-weight: bold;
     margin-left: 5px;
+  }
+
+  & .sub {
+    margin-left: 5px;
+    font-style: italic;
   }
 `;
 
