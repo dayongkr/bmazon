@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 
 import NoticeBar from '../components/index/noticeBar';
@@ -56,21 +56,21 @@ const Home = () => {
 
   return (
     <>
-      <Slide></Slide>
-      <NoticeBar text="2019년 12월 21일 서비스 점검이 있습니다."></NoticeBar>
+      <Slide />
+      <NoticeBar text="2019년 12월 21일 서비스 점검이 있습니다." />
       <SubWrapper title="MD 추천상품">
-        {dummy.map((item, index) => (
+        {dummy.map(item => (
           <ProductShowWrapper
-            key={item.asin + index}
+            key={item.asin + Date.now()}
             name={item.name}
             asin={item.asin}
             price={item.price}
             img={item.img}
-          ></ProductShowWrapper>
+          />
         ))}
       </SubWrapper>
       <SubWrapper title="환율">
-        {rate && <ExchangeRateInput rate={rate}></ExchangeRateInput>}
+        {rate && <ExchangeRateInput rate={rate} />}
         {date && time && provider && (
           <span
             className="sub"
@@ -82,7 +82,7 @@ const Home = () => {
               float: 'right',
             }}
           >
-            {date + ' ' + time + ' ' + provider}
+            {`${date} ${time} ${provider}`}
           </span>
         )}
       </SubWrapper>

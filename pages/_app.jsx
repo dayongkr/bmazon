@@ -11,7 +11,7 @@ import rootSaga from '../sagas';
 import reducer from '../reducers';
 import '../public/static/empty.css';
 
-const UseEffect_app = dynamic(import('../components/useEffect_app'), {
+const UseEffectApp = dynamic(import('../components/useEffectApp'), {
   ssr: false,
 });
 import Header from '../components/header';
@@ -45,14 +45,15 @@ const App = ({ Component, store, pageProps }) => {
           style={{
             maxWidth: '500px',
             margin: 'auto',
+            minHeight: '100vh',
             backgroundColor: '#eee',
             boxShadow: '0 3px 6px rgba(0,0,0,0.1)',
           }}
         >
           <Header pageProps={pageProps}></Header>
-          <UseEffect_app>
+          <UseEffectApp>
             <Component {...pageProps}></Component>
-          </UseEffect_app>
+          </UseEffectApp>
         </div>
       </Provider>
     </>

@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "bmazon",
+    "password": "leeda2766!",
+    "database": "innodb",
+    "host": "bmazon.chyrkqdlvpk2.ap-northeast-2.rds.amazonaws.com",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "bmazon",
+    "password": "leeda2766!",
+    "database": "database",
+    "host": "bmazon.chyrkqdlvpk2.ap-northeast-2.rds.amazonaws.com",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "bmazon",
+    "password": "leeda2766!",
+    "database": "database",
+    "host": "bmazon.chyrkqdlvpk2.ap-northeast-2.rds.amazonaws.com",
+    "dialect": "mysql"
+  }
+}

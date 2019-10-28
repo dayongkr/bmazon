@@ -9,7 +9,7 @@ import {
   EXCHANGE_RATE_SUCCESS,
 } from '../reducers/exchange';
 
-const UseEffect_app = ({ children }) => {
+const UseEffectApp = ({ children }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     if (!firebase.app.length) {
@@ -49,8 +49,8 @@ const UseEffect_app = ({ children }) => {
   return <> {children}</>;
 };
 
-UseEffect_app.getInitialProps = async context => {
+UseEffectApp.getInitialProps = async context => {
   console.log(context);
 };
 
-export default UseEffect_app;
+export default UseEffectApp;

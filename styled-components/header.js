@@ -103,7 +103,7 @@ export const ProfileNav = styled.div`
   }
 
   & .subWrap {
-    padding: 15px 0;
+    padding: 10px 0 15px;
     line-height: 20px;
     border-bottom: 1px solid #eee;
   }
