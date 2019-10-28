@@ -45,6 +45,10 @@ export const ProductMainNavigationWrapper = styled.div`
   border-bottom: 1px solid #eee;
   overflow-x: auto;
   overflow-y: hidden;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  border-bottom: 1px solid #eee;
 `;
 
 export const ProductMainNavigationStyled = styled.ul`
@@ -84,11 +88,12 @@ export const ProductMainNavigationStyled = styled.ul`
   }
 `;
 
-export const ProductDetailInfoWrapper = styled.div`
+export const ProductInfoWrapper = styled.div`
   overflow-x: auto;
   margin: 5px 0;
-  padding: 15px;
+`;
 
+export const ProductDetailInfoWrapper = styled(ProductInfoWrapper)`
   & img {
     vertical-align: top;
     max-width: 100%;
@@ -250,5 +255,16 @@ export const ProductDetailInfoWrapper = styled.div`
     border-radius: 0.4rem;
     border: 0.1rem #ddd solid;
     background-color: #fff;
+  }
+`;
+
+export const ProductMainInfoWrapper = styled.div`
+  padding: 15px;
+  & p.title {
+    font-size: 26px;
+    font-weight: bold;
+    padding: 15px 0;
+    border-bottom: 2px solid #eee;
+    margin: 0;
   }
 `;

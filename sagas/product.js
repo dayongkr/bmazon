@@ -66,13 +66,9 @@ function* getProductInfo(action) {
     })();
 
     // 늦게 로딩되는 이미지 로딩
-    yield $('div#aplus_feature_div')
-      .children('div')
-      .find('img')
-      .filter((i, e) => $(e).hasClass('a-lazy-loaded'))
-      .each((i, e) => {
-        $(e).attr('src', $(e).data('src'));
-      });
+    yield $('img.a-lazy-loaded').each((i, e) => {
+      $(e).attr('src', $(e).data('src'));
+    });
 
     // 비디오 불러오기
     yield $('div.premium-module-8-hero-video').each((index, item) => {

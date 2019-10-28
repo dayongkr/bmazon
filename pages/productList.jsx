@@ -1,22 +1,20 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
-import MainSearch from '../components/index/mainSearch';
-import {
-  MainNav,
-  SearchStyled,
-  ProductListWrapper,
-} from '../styled-components/productList/productList';
+import { ProductListWrapper } from '../styled-components/productList/productList';
 import ProductItem from '../components/productList/productItem';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { PRODUCT_LIST_REQUEST } from '../reducers/productList';
+import {
+  PRODUCT_LIST_REQUEST,
+  PRODUCT_LIST_RESET,
+} from '../reducers/productList';
 
 const ProductList = ({ value }) => {
-  const navRef = useRef();
   const { items } = useSelector(state => state.productList);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch({ type: PRODUCT_LIST_RESET });
     dispatch({
       type: PRODUCT_LIST_REQUEST,
       data: { value: encodeURIComponent(value) },
@@ -24,7 +22,6 @@ const ProductList = ({ value }) => {
   }, []);
   return (
     <>
-      {/* <MainNav ref={navRef}></MainNav> */}
       <ProductListWrapper>
         {items &&
           items.map(item => (

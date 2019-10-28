@@ -40,9 +40,16 @@ const Div = styled.div`
 
 const ProductDetailsWrapper = () => {
   const { rate, date, time } = useSelector(state => state.exchange);
-  const { name, price, category, asin, options, imageUrl, ship } = useSelector(
-    state => state.product,
-  );
+  const {
+    name,
+    price,
+    category,
+    asin,
+    options,
+    imageUrl,
+    ship,
+    loaded,
+  } = useSelector(state => state.product);
 
   const [dimmed, setDimmed] = useState('none');
   const [optionSelect, setOptionSelect] = useState([]);
@@ -68,34 +75,33 @@ const ProductDetailsWrapper = () => {
 
   return (
     <>
-      {name ? (
+      {loaded ? (
         <ProductDetailsWrapperStyled>
           <p className="title">{name && name}</p>
           <ProductCategoryWrapper>
-            {category &&
+            {loaded &&
+              category &&
               category.map(item => (
                 <CategoryTag key={item} text={item}></CategoryTag>
               ))}
           </ProductCategoryWrapper>
-          {price && (
+          {loaded && price && (
             <ProductPrice>
               <span className="main">
-                {rate && `₩${formattingComma(price * rate, true)}`}
+                {rate &&
+                  `₩${formattingComma((price + (ship || 0)) * rate, true)}`}
                 {name && !price && '구매불가 상품입니다.'}
               </span>
-              <span className="sub">{`\$${formattingComma(price)}`}</span>
+              <span className="sub">
+                {`\$${formattingComma(price)}`}
+                {ship && ` + $${formattingComma(ship)}`}
+              </span>
             </ProductPrice>
           )}
-          {rate && price && (
+          {loaded && rate && ship && (
             <>
               <ShipPrice>
-                배송비
-                <span className="main">
-                  {ship
-                    ? `₩${formattingComma(ship * rate, true)}`
-                    : '배송 불가'}
-                </span>
-                <span className="sub">{ship && `$${ship}`}</span>
+                {ship ? null : <span className="main">배송 불가</span>}
               </ShipPrice>
               <ExchangeRateDate>
                 <span className="main">{`$1 = ₩${formattingComma(rate)}`}</span>
@@ -104,7 +110,8 @@ const ProductDetailsWrapper = () => {
             </>
           )}
 
-          {options &&
+          {loaded &&
+            options &&
             options.option.length !== 1 &&
             options.listName.map((item, index) => {
               return (

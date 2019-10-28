@@ -17,7 +17,7 @@ export const Nav = styled.nav`
     background-color: #333;
   }
 
-  & > #profileDummy {
+  & .profileDummy {
     width: 40px;
     height: 40px;
     border-radius: 100%;
@@ -26,6 +26,7 @@ export const Nav = styled.nav`
     color: white;
     text-align: center;
     font-size: 14px;
+    cursor: pointer;
   }
 `;
 
@@ -63,5 +64,57 @@ export const SearchWrapper = styled.div`
   & #mainSearch::placeholder {
     opacity: 0.8;
     font-size: 12px;
+  }
+`;
+
+export const ProfileNav = styled.div`
+  width: 200px;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: 60px;
+  background-color: white;
+  right: 10px;
+  display: ${props => props.display};
+  font-size: 14px;
+
+  & .profileDummy {
+    width: 35px;
+    height: 35px;
+    font-size: 13px;
+    line-height: 35px;
+  }
+
+  & .mainWrap {
+    display: flex;
+    align-items: center;
+    padding-bottom: 15px;
+  }
+
+  & .textWrap {
+    margin-left: 10px;
+    line-height: 17px;
+  }
+
+  & .myPage {
+    font-size: 13px;
+    color: #5e3eda;
+  }
+
+  & .subWrap {
+    padding: 15px 0;
+    line-height: 20px;
+    border-bottom: 1px solid #eee;
+  }
+
+  & .logout {
+    margin: 15px 0 0;
+    font-size: 13px;
+    color: #666;
+  }
+
+  & .link {
+    cursor: pointer;
   }
 `;

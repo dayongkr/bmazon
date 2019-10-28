@@ -8,6 +8,7 @@ export const initialState = {
   details: null,
   options: null,
   ship: null,
+  loaded: false,
 };
 
 export const PRODUCT_INFORMATION_REQUEST = 'PRODUCT_INFORMATION_REQUEST';
@@ -29,6 +30,7 @@ export default (state = initialState, action) => {
         ...state,
         url: action.data.url,
         asin: action.data.asin,
+        loaded: false,
       };
     }
     case PRODUCT_INFORMATION_SUCCESS: {
@@ -41,11 +43,13 @@ export default (state = initialState, action) => {
         details: action.data.details,
         options: action.data.options,
         ship: action.data.ship,
+        loaded: true,
       };
     }
     case PRODUCT_INFORMATION_FAILURE: {
       return {
         ...state,
+        loaded: true,
       };
     }
     case PRODUCT_INFORMATION_RESET: {

@@ -1,12 +1,13 @@
 export const initialState = {
   html: null,
-  value: '',
+  value: null,
   items: null,
 };
 
 export const PRODUCT_LIST_REQUEST = 'PRODUCT_LIST_REQUEST';
 export const PRODUCT_LIST_SUCCESS = 'PRODUCT_LIST_SUCCESS';
 export const PRODUCT_LIST_FAILURE = 'PRODUCT_LIST_FAILURE';
+export const PRODUCT_LIST_RESET = 'PRODUCT_LIST_RESET';
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -15,7 +16,6 @@ export default (state = initialState, action) => {
         ...state,
         value: action.data.value,
       };
-      break;
     }
     case PRODUCT_LIST_SUCCESS: {
       return {
@@ -26,6 +26,14 @@ export default (state = initialState, action) => {
     case PRODUCT_LIST_FAILURE: {
       return {
         ...state,
+      };
+    }
+    case PRODUCT_LIST_RESET: {
+      return {
+        ...state,
+        html: null,
+        value: null,
+        items: null,
       };
     }
     default: {

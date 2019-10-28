@@ -52,7 +52,7 @@ const Home = () => {
     },
   ];
 
-  useEffect(() => {}, []);
+  // useEffect(() => {}, []);
 
   return (
     <>

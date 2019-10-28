@@ -1,8 +1,0 @@
-{
-  "eslintConfig": {
-    "extends": ["airbnb", "prettier"],
-    "env": {
-      "browser": true
-    }
-  }
-}

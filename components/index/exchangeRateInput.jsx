@@ -76,7 +76,9 @@ const ExchangeRateInput = ({ rate }) => {
   return (
     <>
       <ExchangeRateWrapper>
-        <span className="country">🇺🇸</span>
+        <span className="country" role="img">
+          🇺🇸
+        </span>
         <input
           className="exchangeRateInput"
           onChange={useCallback(e => onChangeExchangeRate(e, 'A'), [rate])}
@@ -85,7 +87,9 @@ const ExchangeRateInput = ({ rate }) => {
         ></input>
       </ExchangeRateWrapper>
       <ExchangeRateWrapper>
-        <span className="country">🇰🇷</span>
+        <span className="country" role="img">
+          🇰🇷
+        </span>
         <input
           className="exchangeRateInput"
           onChange={useCallback(e => onChangeExchangeRate(e, 'B'), [rate])}

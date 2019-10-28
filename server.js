@@ -74,9 +74,12 @@ app.prepare().then(() => {
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
       });
       module.exports.browser = browser;
-      ppomSale(cacheItem, dev);
-      setInterval(ppomSale(cacheItem, dev), 60000); // 뽐뿌 할인 5초간 확인
-      browser.on('disconnected', setupPuppeteer);
+      // ppomSale(cacheItem, dev);
+      // const ppomSaleInterv = setInterval(ppomSale(cacheItem, dev), 60000); // 뽐뿌 할인 5초간 확인
+      browser.on('disconnected', () => {
+        // clearInterval(ppomSaleInterv)
+        setupPuppeteer();
+      });
       console.log(`Started Puppeteer with pid ${browser.process().pid}`);
     } catch (e) {
       console.error(e);

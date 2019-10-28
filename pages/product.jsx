@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Head from 'next/head';
 import styled from 'styled-components';
 
 import ProductDetailsWrapper from '../components/product/productDetailsWrapper';
 import ProductMainNavigation from '../components/product/productMainNavigation';
-
 import { PRODUCT_INFORMATION_REQUEST } from '../reducers/product';
 import { PRODUCT_INFORMATION_RESET } from '../reducers/product';
 import {
@@ -13,7 +12,9 @@ import {
   ProductMainImageWrapper,
   ProductWrapper,
   ProductDetailInfoWrapper,
+  ProductMainInfoWrapper,
 } from '../styled-components/product/product';
+import ProductInfo from '../components/product/productInfo';
 
 const Div = styled.div`
   background-color: #eee;
@@ -23,8 +24,11 @@ const Div = styled.div`
 `;
 
 const Product = ({ asin }) => {
-  const { imageUrl, details, name } = useSelector(state => state.product);
+  const { imageUrl, details, name, loaded } = useSelector(
+    state => state.product,
+  );
   const dispatch = useDispatch();
+  const mainInfoWrapperRef = useRef();
 
   useEffect(() => {
     dispatch({
@@ -41,7 +45,7 @@ const Product = ({ asin }) => {
         <title>bmazon{name && `-${name}`}</title>
       </Head>
 
-      {imageUrl ? (
+      {loaded ? (
         <ProductMainImageWrapper>
           <img src={imageUrl} id="productMainImage"></img>
         </ProductMainImageWrapper>
@@ -50,14 +54,40 @@ const Product = ({ asin }) => {
       )}
       <ProductWrapper>
         <ProductDetailsWrapper></ProductDetailsWrapper>
-        <ProductMainNavigation></ProductMainNavigation>
-        <ProductDetailInfoWrapper
-          className="aplus-v2 mobile celwidget weblabRtl"
-          cel_widget_id="m-aplus"
-          data-cel-widget="m-aplus"
-        >
-          <div dangerouslySetInnerHTML={{ __html: details }}></div>
-        </ProductDetailInfoWrapper>
+        <ProductMainNavigation
+          mainInfoEl={mainInfoWrapperRef}
+        ></ProductMainNavigation>
+        <ProductMainInfoWrapper ref={mainInfoWrapperRef}>
+          {loaded ? (
+            <>
+              <ProductDetailInfoWrapper
+                className="aplus-v2 mobile celwidget weblabRtl"
+                cel_widget_id="m-aplus"
+                data-cel-widget="m-aplus"
+              >
+                <p className="title">상품소개</p>
+                <div dangerouslySetInnerHTML={{ __html: details }}></div>
+              </ProductDetailInfoWrapper>
+              <ProductInfo text="해외리뷰">
+                <div style={{ height: '50vh' }}></div>
+              </ProductInfo>
+              <ProductInfo text="국내리뷰">
+                <div style={{ height: '50vh' }}></div>
+              </ProductInfo>
+              <ProductInfo text="커뮤니티">
+                <div style={{ height: '50vh' }}></div>
+              </ProductInfo>
+              <ProductInfo text="국내 최저가 비교">
+                <div style={{ height: '50vh' }}></div>
+              </ProductInfo>
+              <ProductInfo text="구매대행 정책">
+                <div style={{ height: '150vh' }}></div>
+              </ProductInfo>
+            </>
+          ) : (
+            ''
+          )}
+        </ProductMainInfoWrapper>
       </ProductWrapper>
       <ProductBottomNavigation>
         <div id="productPutCartButton">장바구니 담기</div>
