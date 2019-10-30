@@ -1,13 +1,17 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useSelector, useDispatch } from 'react-redux';
 
 import MainSearch from './index/mainSearch';
 import { Nav, SearchWrapper, ProfileNav } from '../styled-components/header';
+import { LOG_OUT_REQUEST } from '../reducers/user';
 
 const Header = ({ pageProps }) => {
   const [profileNavDisplay, setProfileNavDisplay] = useState('none');
   const router = useRouter();
+  const dispatch = useDispatch();
+  const { me } = useSelector(state => state.user);
 
   const onClickProfile = useCallback(() => {
     setProfileNavDisplay(profileNavDisplay === 'none' ? 'block' : 'none');
@@ -16,13 +20,20 @@ const Header = ({ pageProps }) => {
   const onClickClose = useCallback(
     e => {
       if (profileNavDisplay === 'block') {
-        if (typeof e == 'string' || !e.target.closest('#modalProfile')) {
+        if (typeof e === 'string' || !e.target.closest('#modalProfile')) {
           setProfileNavDisplay('none');
         }
       }
     },
     [profileNavDisplay],
   );
+
+  const onClickLogOut = useCallback(() => {
+    dispatch({
+      type: LOG_OUT_REQUEST,
+    });
+    setProfileNavDisplay('none');
+  }, []);
 
   useEffect(() => {
     router.events.on('routeChangeStart', onClickClose);
@@ -47,13 +58,15 @@ const Header = ({ pageProps }) => {
       </SearchWrapper>
 
       <div onClick={onClickProfile} className="profileDummy">
-        다용
+        {me ? me.nickname.substring(0, 1) : '?'}
       </div>
       <ProfileNav id="modalProfile" display={profileNavDisplay}>
         <div className="mainWrap">
-          <div className="profileDummy">다용</div>
+          <div className="profileDummy">
+            {me ? me.nickname.substring(0, 1) : '?'}
+          </div>
           <div className="textWrap">
-            <p className="name">이다용</p>
+            <p className="name">{me ? me.nickname : '로그인을 하세요'}</p>
             <p className="myPage link">마이페이지</p>
           </div>
         </div>
@@ -64,7 +77,15 @@ const Header = ({ pageProps }) => {
           </Link>
           <p className="contact link">고객센터</p>
         </div>
-        <p className="logout link">로그아웃</p>
+        {me ? (
+          <p onClick={onClickLogOut} className="logout link">
+            로그아웃
+          </p>
+        ) : (
+          <Link href="/logIn">
+            <p className="logout link">로그인</p>
+          </Link>
+        )}
       </ProfileNav>
     </Nav>
   );

@@ -6,6 +6,7 @@ import withReduxSaga from 'next-redux-saga';
 import { applyMiddleware, compose, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
+import axios from 'axios';
 
 import rootSaga from '../sagas';
 import reducer from '../reducers';
@@ -17,6 +18,7 @@ const UseEffectApp = dynamic(import('../components/useEffectApp'), {
 import Header from '../components/header';
 import { createGlobalStyle } from 'styled-components';
 import ResetStyle from '../styled-components/resetStyle';
+import { LOAD_USER_REQUEST } from '../reducers/user';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -63,6 +65,17 @@ const App = ({ Component, store, pageProps }) => {
 App.getInitialProps = async context => {
   const { ctx, Component } = context;
   let pageProps = {};
+  const state = ctx.store.getState();
+  const cookie = ctx.isServer ? ctx.req.headers.cookie : '';
+  const dispatch = ctx.store.dispatch;
+  if (ctx.isServer && cookie) {
+    axios.defaults.headers.Cookie = cookie;
+  }
+  if (!state.user.me) {
+    dispatch({
+      type: LOAD_USER_REQUEST,
+    });
+  }
   if (Component.getInitialProps) {
     pageProps = await Component.getInitialProps(ctx);
   }

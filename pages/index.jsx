@@ -21,7 +21,7 @@ const Home = () => {
     {
       name:
         'Over Ear Headphone, Wired Premium Stereo Sound Headsets with 50mm Driver, Foldable Comfortable Headphones with Protein Earmuffs and Shareport for Recording Monitoring Podcast PC TV- with Mic (Silver)',
-      asin: 'B07G74V1YP',
+      asin: 'B07G74V6YP',
       price: 39.99,
       img:
         'https://images-na.ssl-images-amazon.com/images/I/410eGsXZhPL._AC_SY400_.jpg',
@@ -29,7 +29,7 @@ const Home = () => {
     {
       name:
         'Over Ear Headphone, Wired Premium Stereo Sound Headsets with 50mm Driver, Foldable Comfortable Headphones with Protein Earmuffs and Shareport for Recording Monitoring Podcast PC TV- with Mic (Silver)',
-      asin: 'B07G74V1YP',
+      asin: 'B07G74V5YP',
       price: 39.99,
       img:
         'https://images-na.ssl-images-amazon.com/images/I/410eGsXZhPL._AC_SY400_.jpg',
@@ -37,7 +37,7 @@ const Home = () => {
     {
       name:
         'Over Ear Headphone, Wired Premium Stereo Sound Headsets with 50mm Driver, Foldable Comfortable Headphones with Protein Earmuffs and Shareport for Recording Monitoring Podcast PC TV- with Mic (Silver)',
-      asin: 'B07G74V1YP',
+      asin: 'B07G74V3YP',
       price: 39.99,
       img:
         'https://images-na.ssl-images-amazon.com/images/I/410eGsXZhPL._AC_SY400_.jpg',
@@ -45,7 +45,7 @@ const Home = () => {
     {
       name:
         'Over Ear Headphone, Wired Premium Stereo Sound Headsets with 50mm Driver, Foldable Comfortable Headphones with Protein Earmuffs and Shareport for Recording Monitoring Podcast PC TV- with Mic (Silver)',
-      asin: 'B07G74V1YP',
+      asin: 'B07G74V4YP',
       price: 39.99,
       img:
         'https://images-na.ssl-images-amazon.com/images/I/410eGsXZhPL._AC_SY400_.jpg',
@@ -61,7 +61,7 @@ const Home = () => {
       <SubWrapper title="MD 추천상품">
         {dummy.map(item => (
           <ProductShowWrapper
-            key={item.asin + Date.now()}
+            key={item.asin}
             name={item.name}
             asin={item.asin}
             price={item.price}

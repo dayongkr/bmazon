@@ -14,13 +14,15 @@ const https = require('https');
 const http = require('http');
 const fs = require('fs');
 const redirectHttps = require('redirect-https');
+const passport = require('passport');
+const cors = require('cors');
 
 const productAPIRouter = require('./routes/product');
 const userAPIRouter = require('./routes/user');
 const productListAPIRouter = require('./routes/productList');
 const testAPIRouter = require('./routes/test');
-const ppomSale = require('./function/ppomSale');
 const db = require('./models');
+const passportConfig = require('./passport');
 
 const dev = process.env.NODE_ENV !== 'production';
 // const prod = process.env.NODE_ENV === 'production';
@@ -53,12 +55,18 @@ const lex = greenlockExpress.create({
 });
 
 dotenv.config();
-db.sequelize.sync();
 
 app.prepare().then(() => {
   const server = express();
-  let cacheItem = 107744;
+  db.sequelize.sync();
+  passportConfig();
 
+  server.use(
+    cors({
+      origin: true,
+      credentials: true,
+    }),
+  );
   server.use(compression());
   server.use(morgan('dev'));
   server.use(express.json());
@@ -71,10 +79,14 @@ app.prepare().then(() => {
       secret: process.env.COOKIE_SECRET,
       cookie: {
         httpOnly: true,
-        secure: false,
+        secure: true,
       },
+      name: 'dlekdyd',
     }),
   );
+  server.use(passport.initialize());
+  server.use(passport.session());
+
   const setupPuppeteer = async () => {
     try {
       puppeteer.use(pluginStealth());
@@ -83,10 +95,7 @@ app.prepare().then(() => {
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
       });
       module.exports.browser = browser;
-      // ppomSale(cacheItem, dev);
-      // const ppomSaleInterv = setInterval(ppomSale(cacheItem, dev), 60000); // 뽐뿌 할인 5초간 확인
       browser.on('disconnected', () => {
-        // clearInterval(ppomSaleInterv)
         setupPuppeteer();
       });
       console.log(`Started Puppeteer with pid ${browser.process().pid}`);

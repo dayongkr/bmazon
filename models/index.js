@@ -13,14 +13,15 @@ const sequelize = new Sequelize(
   config,
 );
 
+db.Cart = require('./cart')(sequelize, Sequelize);
+db.User = require('./user')(sequelize, Sequelize);
+
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
   }
 });
 
-db.Comment = require('./cart')(sequelize, Sequelize);
-db.Comment = require('./user')(sequelize, Sequelize);
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 

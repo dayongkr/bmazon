@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import firebase from 'firebase/app';
 
 import ChannelService from '../function/ChannelService';
@@ -11,6 +11,8 @@ import {
 
 const UseEffectApp = ({ children }) => {
   const dispatch = useDispatch();
+  const { me } = useSelector(state => state.user);
+
   useEffect(() => {
     if (!firebase.app.length) {
       const firebaseConfig = {
@@ -47,10 +49,6 @@ const UseEffectApp = ({ children }) => {
     };
   }, []);
   return <> {children}</>;
-};
-
-UseEffectApp.getInitialProps = async context => {
-  console.log(context);
 };
 
 export default UseEffectApp;

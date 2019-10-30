@@ -6,12 +6,12 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(20),
         allowNull: false,
       },
-      userId: {
-        type: DataTypes.STRING(20),
+      tel: {
+        type: DataTypes.INTEGER,
         allowNull: false,
-        unique: true,
       },
       password: { type: DataTypes.STRING(100), allowNull: false },
+      email: { type: DataTypes.TEXT, allowNull: false },
     },
     {
       charset: 'utf8',
