@@ -5,8 +5,11 @@ import styled from 'styled-components';
 
 import ProductDetailsWrapper from '../components/product/productDetailsWrapper';
 import ProductMainNavigation from '../components/product/productMainNavigation';
-import { PRODUCT_INFORMATION_REQUEST } from '../reducers/product';
-import { PRODUCT_INFORMATION_RESET } from '../reducers/product';
+import {
+  PRODUCT_INFORMATION_REQUEST,
+  PRODUCT_INFORMATION_RESET,
+} from '../reducers/product';
+
 import {
   ProductBottomNavigation,
   ProductMainImageWrapper,
@@ -47,16 +50,14 @@ const Product = ({ asin }) => {
 
       {loaded ? (
         <ProductMainImageWrapper>
-          <img src={imageUrl} id="productMainImage"></img>
+          <img src={imageUrl} id="productMainImage" />
         </ProductMainImageWrapper>
       ) : (
         <Div></Div>
       )}
       <ProductWrapper>
-        <ProductDetailsWrapper></ProductDetailsWrapper>
-        <ProductMainNavigation
-          mainInfoEl={mainInfoWrapperRef}
-        ></ProductMainNavigation>
+        <ProductDetailsWrapper />
+        <ProductMainNavigation mainInfoEl={mainInfoWrapperRef} />
         <ProductMainInfoWrapper ref={mainInfoWrapperRef}>
           {loaded ? (
             <>
@@ -66,22 +67,22 @@ const Product = ({ asin }) => {
                 data-cel-widget="m-aplus"
               >
                 <p className="title">상품소개</p>
-                <div dangerouslySetInnerHTML={{ __html: details }}></div>
+                <div dangerouslySetInnerHTML={{ __html: details }} />
               </ProductDetailInfoWrapper>
               <ProductInfo text="해외리뷰">
-                <div style={{ height: '50vh' }}></div>
+                <div style={{ height: '50vh' }} />
               </ProductInfo>
               <ProductInfo text="국내리뷰">
-                <div style={{ height: '50vh' }}></div>
+                <div style={{ height: '50vh' }} />
               </ProductInfo>
               <ProductInfo text="커뮤니티">
-                <div style={{ height: '50vh' }}></div>
+                <div style={{ height: '50vh' }} />
               </ProductInfo>
               <ProductInfo text="국내 최저가 비교">
-                <div style={{ height: '50vh' }}></div>
+                <div style={{ height: '50vh' }} />
               </ProductInfo>
               <ProductInfo text="구매대행 정책">
-                <div style={{ height: '150vh' }}></div>
+                <div style={{ height: '150vh' }} />
               </ProductInfo>
             </>
           ) : (

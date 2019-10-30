@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { ProductListWrapper } from '../styled-components/productList/productList';
 import ProductItem from '../components/productList/productItem';
-import { useDispatch, useSelector } from 'react-redux';
 
 import {
   PRODUCT_LIST_REQUEST,
@@ -33,7 +33,7 @@ const ProductList = ({ value }) => {
               reviewers={item.reviewers}
               price={item.price}
               asin={item.asin}
-            ></ProductItem>
+            />
           ))}
         {items && items.length === 0 && `"${value}"는 존재하지 않습니다.`}
       </ProductListWrapper>
