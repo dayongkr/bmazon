@@ -9,14 +9,14 @@
   "test": {
     "username": "bmazon",
     "password": "leeda2766!",
-    "database": "database",
+    "database": "innodb",
     "host": "bmazon.chyrkqdlvpk2.ap-northeast-2.rds.amazonaws.com",
     "dialect": "mysql"
   },
   "production": {
     "username": "bmazon",
     "password": "leeda2766!",
-    "database": "database",
+    "database": "innodb",
     "host": "bmazon.chyrkqdlvpk2.ap-northeast-2.rds.amazonaws.com",
     "dialect": "mysql"
   }
