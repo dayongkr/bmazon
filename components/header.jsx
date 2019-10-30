@@ -82,7 +82,7 @@ const Header = ({ pageProps }) => {
             로그아웃
           </p>
         ) : (
-          <Link href="/logIn">
+          <Link href="/login">
             <p className="logout link">로그인</p>
           </Link>
         )}
