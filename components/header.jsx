@@ -58,12 +58,12 @@ const Header = ({ pageProps }) => {
       </SearchWrapper>
 
       <div onClick={onClickProfile} className="profileDummy">
-        {me ? me.nickname.substring(0, 1) : '?'}
+        {me ? String(me.nickname).substring(0, 1) : '?'}
       </div>
       <ProfileNav id="modalProfile" display={profileNavDisplay}>
         <div className="mainWrap">
           <div className="profileDummy">
-            {me ? me.nickname.substring(0, 1) : '?'}
+            {me ? String(me.nickname).substring(0, 1) : '?'}
           </div>
           <div className="textWrap">
             <p className="name">{me ? me.nickname : '로그인을 하세요'}</p>
