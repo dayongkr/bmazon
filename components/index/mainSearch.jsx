@@ -42,7 +42,7 @@ const MainSearch = ({ defaultValue = '', iconColor = 'default' }) => {
                 : 'search-24px-gray.svg'
             }`
           }
-          width="25"
+          width="30"
           alt="검색버튼"
           onClick={onClickSearch}
         ></img>

@@ -33,6 +33,7 @@ const Header = ({ pageProps }) => {
       type: LOG_OUT_REQUEST,
     });
     setProfileNavDisplay('none');
+    router.push('/');
   }, []);
 
   useEffect(() => {
@@ -57,36 +58,40 @@ const Header = ({ pageProps }) => {
         )}
       </SearchWrapper>
 
-      <div onClick={onClickProfile} className="profileDummy">
-        {me ? String(me.nickname).substring(0, 1) : '?'}
-      </div>
-      <ProfileNav id="modalProfile" display={profileNavDisplay}>
-        <div className="mainWrap">
-          <div className="profileDummy">
-            {me ? String(me.nickname).substring(0, 1) : '?'}
+      {me ? (
+        <>
+          <div onClick={onClickProfile} className="profileDummy">
+            {String(me.nickname).substring(1, 3)}
           </div>
-          <div className="textWrap">
-            <p className="name">{me ? me.nickname : '로그인을 하세요'}</p>
-            <p className="myPage link">마이페이지</p>
-          </div>
-        </div>
-        <div className="subWrap">
-          <p className="orderNship link">주문/배송</p>
-          <Link href="/cart">
-            <p className="cart link">장바구니</p>
-          </Link>
-          <p className="contact link">고객센터</p>
-        </div>
-        {me ? (
-          <p onClick={onClickLogOut} className="logout link">
-            로그아웃
-          </p>
-        ) : (
-          <Link href="/login">
-            <p className="logout link">로그인</p>
-          </Link>
-        )}
-      </ProfileNav>
+          <ProfileNav id="modalProfile" display={profileNavDisplay}>
+            <div className="mainWrap">
+              <div className="profileDummy">
+                {String(me.nickname).substring(1, 3)}
+              </div>
+              <div className="textWrap">
+                <p className="name">{me.nickname}</p>
+                <p className="myPage link">마이페이지</p>
+              </div>
+            </div>
+            <div className="subWrap">
+              <p className="orderNship link">주문/배송</p>
+
+              <Link href="/cart">
+                <p className="cart link">장바구니</p>
+              </Link>
+
+              <p className="contact link">고객센터</p>
+            </div>
+            <p onClick={onClickLogOut} className="logout link">
+              로그아웃
+            </p>
+          </ProfileNav>
+        </>
+      ) : (
+        <Link href="/login">
+          <p className="login">로그인</p>
+        </Link>
+      )}
     </Nav>
   );
 };

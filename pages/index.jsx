@@ -55,7 +55,7 @@ const Home = () => {
   // useEffect(() => {}, []);
 
   return (
-    <>
+    <div id="indexMainWrapper" style={{ backgroundColor: '#eee' }}>
       <Slide />
       <NoticeBar text="2019년 12월 21일 서비스 점검이 있습니다." />
       <SubWrapper title="MD 추천상품">
@@ -86,7 +86,7 @@ const Home = () => {
           </span>
         )}
       </SubWrapper>
-    </>
+    </div>
   );
 };
 

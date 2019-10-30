@@ -11,7 +11,6 @@ import {
 
 const UseEffectApp = ({ children }) => {
   const dispatch = useDispatch();
-  const { me } = useSelector(state => state.user);
 
   useEffect(() => {
     if (!firebase.app.length) {

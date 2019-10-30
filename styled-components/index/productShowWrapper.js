@@ -35,7 +35,15 @@ export const ProductDetails = styled.div`
   & .title {
     font-size: 14px;
     color: #666;
-    height: 30px;
+    height: 29px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
   }
 
   & .price {

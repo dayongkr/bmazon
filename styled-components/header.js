@@ -10,6 +10,7 @@ export const Nav = styled.nav`
   align-items: center;
   padding: 0 20px;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.03);
+
   & > #logoDummy {
     width: 40px;
     height: 28px;
@@ -28,17 +29,27 @@ export const Nav = styled.nav`
     font-size: 14px;
     cursor: pointer;
   }
+
+  & img {
+    cursor: pointer;
+  }
+
+  & .login {
+    font-size: 14px;
+    cursor: pointer;
+  }
 `;
 
 export const SearchWrapper = styled.div`
   position: relative;
   margin: 0 15px;
   height: 40px;
-  width: calc(100% - 110px);
+  width: calc(100% - 130px);
+
   & > #mainSearchWrapper {
     height: 40px;
     border-radius: 5px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15);
   }
   & #searchButton {
     position: absolute;

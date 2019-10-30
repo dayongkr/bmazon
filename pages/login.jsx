@@ -10,14 +10,15 @@ import ButtonInput from '../components/register/ButtonInput';
 import { LOG_IN_REQUEST } from '../reducers/user';
 
 const LoginWrapper = styled(RegisterWrapper)`
+  padding: 0 20px 100px;
+  background-color: white;
   & h1 {
-    font-weight: bold;
     text-align: center;
   }
 `;
 
 const Login = () => {
-  const { isLogging, logInErrorReason, me } = useSelector(state => state.user);
+  const { logInErrorReason, me } = useSelector(state => state.user);
   const dispatch = useDispatch();
   const router = useRouter();
 

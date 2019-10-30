@@ -16,7 +16,7 @@ const ProductShowWrapper = ({ img, name, price, asin }) => {
           style={{ backgroundImage: `url(${img})` }}
         />
         <ProductDetails>
-          <p className="title">{`${name.substring(0, 50)}...`}</p>
+          <p className="title">{name}</p>
           <p className="price">{`\$${formattingComma(price)}`}</p>
         </ProductDetails>
       </ProductShowWrapperStyled>

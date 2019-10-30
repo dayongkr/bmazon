@@ -7,6 +7,7 @@ import { applyMiddleware, compose, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import axios from 'axios';
+import styled from 'styled-components';
 
 import rootSaga from '../sagas';
 import reducer from '../reducers';
@@ -31,6 +32,20 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Noto Sans KR', sans-serif;
     font-weight: normal;
   }
+
+  .slick-slider, .slick-slider * {
+    outline:none;
+  }
+`;
+
+const MainWrapper = styled.div`
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+  min-height: 100vh;
+  background-color: white;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 `;
 
 const App = ({ Component, store, pageProps }) => {
@@ -43,20 +58,12 @@ const App = ({ Component, store, pageProps }) => {
           <title>bmazon</title>
           <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&display=swap"></link>
         </Head>
-        <div
-          style={{
-            maxWidth: '500px',
-            margin: 'auto',
-            minHeight: '100vh',
-            backgroundColor: '#eee',
-            boxShadow: '0 3px 6px rgba(0,0,0,0.1)',
-          }}
-        >
+        <MainWrapper>
           <Header pageProps={pageProps}></Header>
           <UseEffectApp>
             <Component {...pageProps}></Component>
           </UseEffectApp>
-        </div>
+        </MainWrapper>
       </Provider>
     </>
   );
@@ -86,15 +93,15 @@ const configureStore = (initialState, options) => {
   const sagaMiddleware = createSagaMiddleware();
   const middlewares = [sagaMiddleware];
   const enhancer =
-    // process.env.NODE_ENV === 'production'
-    //   ? compose(applyMiddleware(...middlewares)):
-    compose(
-      applyMiddleware(...middlewares),
-      !options.isServer &&
-        typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined'
-        ? window.__REDUX_DEVTOOLS_EXTENSION__()
-        : f => f,
-    );
+    process.env.NODE_ENV === 'production'
+      ? compose(applyMiddleware(...middlewares))
+      : compose(
+          applyMiddleware(...middlewares),
+          !options.isServer &&
+            typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined'
+            ? window.__REDUX_DEVTOOLS_EXTENSION__()
+            : f => f,
+        );
   const store = createStore(reducer, initialState, enhancer);
   store.sagaTask = sagaMiddleware.run(rootSaga);
   return store;
