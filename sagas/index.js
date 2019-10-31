@@ -4,10 +4,17 @@ import exchange from './exchange';
 import product from './product';
 import productList from './productList';
 import user from './user';
+import cart from './cart';
 import backUrl from '../config/backUrl';
 
 axios.defaults.baseURL = `${backUrl}`;
 
 export default function* rootSaga() {
-  yield all([fork(exchange), fork(product), fork(productList), fork(user)]);
+  yield all([
+    fork(exchange),
+    fork(product),
+    fork(productList),
+    fork(user),
+    fork(cart),
+  ]);
 }

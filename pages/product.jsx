@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Head from 'next/head';
 import styled from 'styled-components';
@@ -18,6 +18,7 @@ import {
   ProductMainInfoWrapper,
 } from '../styled-components/product/product';
 import ProductInfo from '../components/product/productInfo';
+import { ADD_CART_REQUEST } from '../reducers/cart';
 
 const Div = styled.div`
   background-color: #eee;
@@ -27,11 +28,18 @@ const Div = styled.div`
 `;
 
 const Product = ({ asin }) => {
-  const { imageUrl, details, name, loaded } = useSelector(
+  const { imageUrl, details, name, loaded, price } = useSelector(
     state => state.product,
   );
   const dispatch = useDispatch();
   const mainInfoWrapperRef = useRef();
+
+  const onClickAddCart = useCallback(() => {
+    dispatch({
+      type: ADD_CART_REQUEST,
+      data: { asin, name, price, image: imageUrl, count: 1 },
+    });
+  }, [asin, name, price, imageUrl]);
 
   useEffect(() => {
     dispatch({
@@ -91,7 +99,9 @@ const Product = ({ asin }) => {
         </ProductMainInfoWrapper>
       </ProductWrapper>
       <ProductBottomNavigation>
-        <div id="productPutCartButton">장바구니 담기</div>
+        <div onClick={onClickAddCart} id="productPutCartButton">
+          장바구니 담기
+        </div>
       </ProductBottomNavigation>
     </>
   );

@@ -20,6 +20,7 @@ const cors = require('cors');
 const productAPIRouter = require('./routes/product');
 const userAPIRouter = require('./routes/user');
 const productListAPIRouter = require('./routes/productList');
+const cartAPIRouter = require('./routes/cart');
 const testAPIRouter = require('./routes/test');
 const db = require('./models');
 const passportConfig = require('./passport');
@@ -87,6 +88,12 @@ app.prepare().then(() => {
   server.use(passport.initialize());
   server.use(passport.session());
 
+  server.use('/api/product', productAPIRouter);
+  server.use('/api/user', userAPIRouter);
+  server.use('/api/productList', productListAPIRouter);
+  server.use('/api/cart', cartAPIRouter);
+  server.use('/api/test', testAPIRouter);
+
   const setupPuppeteer = async () => {
     try {
       puppeteer.use(pluginStealth());
@@ -117,11 +124,6 @@ app.prepare().then(() => {
   server.get('/productList/:value', (req, res) => {
     return app.render(req, res, '/productList', { value: req.params.value });
   });
-
-  server.use('/api/product', productAPIRouter);
-  server.use('/api/user', userAPIRouter);
-  server.use('/api/productList', productListAPIRouter);
-  server.use('/api/test', testAPIRouter);
 
   server.get('*', (req, res) => {
     return handle(req, res);

@@ -82,7 +82,7 @@ const Login = () => {
 
   useEffect(() => {
     if (me) {
-      router.push('/');
+      router.back();
     }
   }, [me]);
 

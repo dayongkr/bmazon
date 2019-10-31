@@ -9,7 +9,9 @@ router.get('/', async (req, res) => {
   if (!req.user) {
     return res.status(401).send('로그인이 필요합니다.');
   }
-  return res.json(req.user);
+  const filteredUser = Object.assign(req.user);
+  filteredUser.password = '****';
+  return res.json(filteredUser);
 });
 
 router.post('/', async (req, res, next) => {
@@ -54,6 +56,7 @@ router.post('/login', async (req, res, next) => {
         }
         const filteredUser = Object.assign(user);
         filteredUser.password = '****';
+        filteredUser.user = req.isAuthenticated();
         return res.json(filteredUser);
       } catch (e) {
         next(e);

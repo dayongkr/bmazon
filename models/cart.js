@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
       asin: {
         type: DataTypes.STRING(20),
         allowNull: false,
+        unique: true,
       },
       count: {
         type: DataTypes.INTEGER,
@@ -16,6 +17,10 @@ module.exports = (sequelize, DataTypes) => {
       },
       price: {
         type: DataTypes.FLOAT,
+        allowNull: false,
+      },
+      image: {
+        type: DataTypes.TEXT,
         allowNull: false,
       },
     },
