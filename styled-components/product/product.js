@@ -29,9 +29,10 @@ export const ProductBottomNavigation = styled.div`
   padding: 10px;
 
   & #productPutCartButton {
+    cursor: pointer;
     width: 100%;
     height: 50px;
-    background-color: #5e3eda;
+    background-color: ${props => (props.loaded ? '#5e3eda' : '#666')};
     border-radius: 5px;
     color: white;
     font-weight: bold;

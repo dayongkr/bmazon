@@ -5,7 +5,6 @@ module.exports = (sequelize, DataTypes) => {
       asin: {
         type: DataTypes.STRING(20),
         allowNull: false,
-        unique: true,
       },
       count: {
         type: DataTypes.INTEGER,

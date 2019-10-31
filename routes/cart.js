@@ -5,17 +5,36 @@ const { isLoggedIn } = require('./middleware');
 
 const router = express.Router();
 
+router.get('/', isLoggedIn, async (req, res, next) => {
+  try {
+    const cartData = await db.Cart.findAll({
+      where: {
+        UserId: req.user.id,
+      },
+    });
+    return res.json(cartData);
+  } catch (e) {
+    next(e);
+  }
+});
+
 router.post('/', isLoggedIn, async (req, res, next) => {
   try {
-    const newCart = await db.Cart.create({
-      asin: req.body.asin,
-      count: req.body.count,
-      name: req.body.name,
-      price: req.body.price,
-      image: req.body.image,
-      UserId: req.user.id,
+    await db.Cart.findOrCreate({
+      where: { UserId: req.user.id, asin: req.body.asin },
+      defaults: {
+        count: req.body.count,
+        name: req.body.name,
+        price: req.body.price,
+        image: req.body.image,
+      },
+    }).spread((cart, created) => {
+      if (created) {
+        res.json(cart);
+      } else {
+        res.status(401).send('장바구니에 이미 존재합니다.');
+      }
     });
-    res.json(newCart);
   } catch (e) {
     next(e);
   }

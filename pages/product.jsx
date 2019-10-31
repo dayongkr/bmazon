@@ -35,11 +35,13 @@ const Product = ({ asin }) => {
   const mainInfoWrapperRef = useRef();
 
   const onClickAddCart = useCallback(() => {
-    dispatch({
-      type: ADD_CART_REQUEST,
-      data: { asin, name, price, image: imageUrl, count: 1 },
-    });
-  }, [asin, name, price, imageUrl]);
+    if (loaded) {
+      dispatch({
+        type: ADD_CART_REQUEST,
+        data: { asin, name, price, image: imageUrl, count: 1 },
+      });
+    }
+  }, [asin, name, price, imageUrl, loaded]);
 
   useEffect(() => {
     dispatch({
@@ -98,7 +100,7 @@ const Product = ({ asin }) => {
           )}
         </ProductMainInfoWrapper>
       </ProductWrapper>
-      <ProductBottomNavigation>
+      <ProductBottomNavigation loaded={loaded}>
         <div onClick={onClickAddCart} id="productPutCartButton">
           장바구니 담기
         </div>

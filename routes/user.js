@@ -23,7 +23,7 @@ router.post('/', async (req, res, next) => {
       },
     });
     if (exUser) {
-      return res.send('이미 사용중인 아이디입니다.');
+      return res.status(401).send('이미 사용중인 아이디입니다.');
     }
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const newUser = await db.User.create({
@@ -47,7 +47,7 @@ router.post('/login', async (req, res, next) => {
       return next(err);
     }
     if (info) {
-      return res.send(info.reason);
+      return res.status(401).send(info.reason);
     }
     return req.login(user, async loginErr => {
       try {
@@ -56,7 +56,6 @@ router.post('/login', async (req, res, next) => {
         }
         const filteredUser = Object.assign(user);
         filteredUser.password = '****';
-        filteredUser.user = req.isAuthenticated();
         return res.json(filteredUser);
       } catch (e) {
         next(e);
