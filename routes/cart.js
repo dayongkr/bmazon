@@ -40,4 +40,16 @@ router.post('/', isLoggedIn, async (req, res, next) => {
   }
 });
 
+router.delete('/:asin', isLoggedIn, async (req, res, next) => {
+  try {
+    await db.Cart.destroy({
+      where: { UserId: req.user.id, asin: req.params.asin },
+    });
+    res.send(`${req.params.asin} 삭제 성공`);
+  } catch (e) {
+    res.status(401).send('삭제 실패');
+    next(e);
+  }
+});
+
 module.exports = router;
