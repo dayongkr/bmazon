@@ -11,10 +11,9 @@ const ProductShowWrapper = ({ img, name, price, asin }) => {
   return (
     <Link href={`/product/${asin}`} prefetch={false}>
       <ProductShowWrapperStyled>
-        <div
-          className="productImage"
-          style={{ backgroundImage: `url(${img})` }}
-        />
+        <div className="productImage">
+          <img src={img} alt={name} />
+        </div>
         <ProductDetails>
           <p className="title">{name}</p>
           <p className="price">{`\$${formattingComma(price)}`}</p>

@@ -6,6 +6,9 @@ import {
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
   PRODUCT_LIST_FAILURE,
+  MD_PRODUCT_LIST_REQUEST,
+  MD_PRODUCT_LIST_SUCCESS,
+  MD_PRODUCT_LIST_FAILURE,
 } from '../reducers/productList';
 
 function getProductListAPI(data) {
@@ -24,7 +27,6 @@ function* getProductList(action) {
         (index, item) => $(item).data('asin') && !$(item).hasClass('AdHolder'),
       )
       .each((index, item) => {
-        console.log();
         items[index] = {
           src: $(item)
             .find('img')
@@ -57,7 +59,7 @@ function* getProductList(action) {
       yield put({
         type: PRODUCT_LIST_SUCCESS,
         data: {
-          items: items,
+          items,
         },
       });
   } catch (e) {
@@ -70,6 +72,23 @@ function* watchProductList() {
   yield takeLatest(PRODUCT_LIST_REQUEST, getProductList);
 }
 
+function mdProductListAPI() {
+  return axios.get('/api/productList/list/md');
+}
+
+function* getMdProductList(action) {
+  try {
+    const result = yield call(mdProductListAPI, action.data);
+    yield put({ type: MD_PRODUCT_LIST_SUCCESS, data: result.data });
+  } catch (e) {
+    yield put({ type: MD_PRODUCT_LIST_FAILURE, error: e });
+  }
+}
+
+function* watchMdProductList() {
+  yield takeLatest(MD_PRODUCT_LIST_REQUEST, getMdProductList);
+}
+
 export default function* productListSaga() {
-  yield all([fork(watchProductList)]);
+  yield all([fork(watchProductList), fork(watchMdProductList)]);
 }

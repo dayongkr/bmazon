@@ -2,6 +2,7 @@ const express = require('express');
 const devices = require('puppeteer/DeviceDescriptors');
 const apicache = require('apicache');
 
+const db = require('../models');
 const server = require('../server');
 
 const phone = [
@@ -46,7 +47,17 @@ router.get('/:value', cache('3 minutes'), async (req, res, next) => {
     res.send(html);
     await page.close();
   } catch (e) {
-    console.error(e);
+    next(e);
+  }
+});
+
+router.get('/list/:type', async (req, res, next) => {
+  try {
+    const mdListData = await db.Notice.findAll({
+      where: { type: req.params.type },
+    });
+    return res.json(mdListData);
+  } catch (e) {
     next(e);
   }
 });

@@ -71,7 +71,7 @@ export default (state = initialState, action) => {
       };
     }
     case PRODUCT_OPTION_INFORMATION_SUCCESS: {
-      const option = state.options.option;
+      const { option } = state.options;
       const currentIndex = option.findIndex(
         item => item.asin === action.data.asin,
       );

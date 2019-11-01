@@ -14,15 +14,19 @@ export const ProductShowWrapperStyled = styled.div`
   & .productImage {
     width: 50px;
     height: 50px;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    background-color: #eee;
     position: absolute;
     left: 10px;
     top: 0;
     bottom: 0;
     margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  & .productImage > img {
+    max-width: 100%;
+    max-height: 100%;
   }
 `;
 

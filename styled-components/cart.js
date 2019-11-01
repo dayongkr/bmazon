@@ -7,7 +7,6 @@ export const CartProductWrapperStyled = styled.div`
   margin-bottom: 15px;
   padding: 12.5px;
   position: relative;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,6 +14,7 @@ export const CartProductWrapperStyled = styled.div`
   & img {
     max-width: 75px;
     max-height: 75px;
+    cursor: pointer;
   }
 
   & .imageWrapper {
@@ -41,6 +41,7 @@ export const CartProductWrapperStyled = styled.div`
     -webkit-line-clamp: 2;
     height: 41px;
     line-height: 1.2em;
+    cursor: pointer;
   }
 
   & .price {
@@ -71,6 +72,7 @@ export const CartProductWrapperStyled = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    outline: none;
   }
 
   & .countWrapper input[type='text'] {
@@ -102,5 +104,55 @@ export const CartMainWrapper = styled.div`
     text-align: center;
     margin: 200px 0;
     color: #666;
+  }
+
+  & .defaultButton {
+    cursor: pointer;
+    width: 100%;
+    height: 40px;
+    background-color: #5e3eda;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    line-height: 40px;
+  }
+`;
+
+export const CartPriceWrapper = styled.div`
+  margin: 30px 0;
+`;
+
+export const CartPriceDetails = styled.div`
+  margin: 7px 0;
+  display: flex;
+  align-items: center;
+  & p {
+    color: #999;
+    font-size: 16px;
+  }
+
+  & p.title {
+    width: 80px;
+    font-size: 14px;
+  }
+`;
+
+export const CartPriceDetailsBig = styled(CartPriceDetails)`
+  border-top: ${props => props.border && '1px solid #eee'};
+  padding: ${props => props.border && '20px 0 5px'};
+  margin: ${props => props.border && '20px 0 10px'};
+  & p {
+    font-size: 20px;
+    color: #666;
+  }
+
+  & p.title {
+    font-size: 16px;
+  }
+
+  & p.price {
+    color: #333;
+    font-weight: bold;
   }
 `;

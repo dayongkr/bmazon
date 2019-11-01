@@ -15,6 +15,7 @@ const sequelize = new Sequelize(
 
 db.Cart = require('./cart')(sequelize, Sequelize);
 db.User = require('./user')(sequelize, Sequelize);
+db.Notice = require('./notice')(sequelize, Sequelize);
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
