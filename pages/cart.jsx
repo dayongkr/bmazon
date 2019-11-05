@@ -27,7 +27,16 @@ const Cart = () => {
       if (items.length === 1) {
         setProductPrice(+items[0].price);
       } else {
-        setProductPrice(+items.reduce((x, y) => x.price + y.price).toFixed(2));
+        setProductPrice(
+          +items
+            .reduce((x, y) => {
+              if (typeof x === 'object') {
+                return x.price + y.price;
+              }
+              return x + y.price;
+            })
+            .toFixed(2),
+        );
       }
       setFeePrice(+(productPrice / 10).toFixed(2));
     }
@@ -44,6 +53,7 @@ const Cart = () => {
             price={item.price}
             count={item.count}
             asin={item.asin}
+            key={item.asin}
           />
         ))
       ) : (

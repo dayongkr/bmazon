@@ -52,11 +52,16 @@ const UseEffectApp = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      dispatch({ type: RESET_ALERT });
-    }, 1500);
+    let timeout;
+    if (alerted) {
+      timeout = setTimeout(() => {
+        dispatch({ type: RESET_ALERT });
+      }, 2000);
+    }
     return () => {
-      clearTimeout(timeout);
+      if (alerted) {
+        clearTimeout(timeout);
+      }
     };
   }, [alerted]);
 

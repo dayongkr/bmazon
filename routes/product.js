@@ -20,9 +20,8 @@ const phone = [
 ];
 
 const router = express.Router();
-const cache = apicache.middleware;
 
-router.get('/:asin', cache('3 minutes'), async (req, res, next) => {
+router.get('/:asin', async (req, res, next) => {
   try {
     const page = await server.browser.newPage();
     await page.setRequestInterception(true);
