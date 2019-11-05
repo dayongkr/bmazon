@@ -5,6 +5,7 @@ import product from './product';
 import productList from './productList';
 import user from './user';
 import cart from './cart';
+import alert from './alert';
 import backUrl from '../config/backUrl';
 
 axios.defaults.baseURL = `${backUrl}`;
@@ -16,5 +17,6 @@ export default function* rootSaga() {
     fork(productList),
     fork(user),
     fork(cart),
+    fork(alert),
   ]);
 }

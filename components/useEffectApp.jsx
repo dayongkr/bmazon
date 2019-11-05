@@ -2,14 +2,17 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import firebase from 'firebase/app';
 
+import Alert from './Alert';
 import ChannelService from '../function/ChannelService';
 
 import {
   EXCHANGE_RATE_REQUEST,
   EXCHANGE_RATE_SUCCESS,
 } from '../reducers/exchange';
+import { RESET_ALERT } from '../reducers/alert';
 
 const UseEffectApp = ({ children }) => {
+  const { alerted, text } = useSelector(state => state.alert);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -47,7 +50,22 @@ const UseEffectApp = ({ children }) => {
       ChannelService.shutdown();
     };
   }, []);
-  return <> {children}</>;
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      dispatch({ type: RESET_ALERT });
+    }, 1500);
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [text]);
+
+  return (
+    <>
+      <Alert text={text} className={alerted ? 'active' : ''} />
+      {children}
+    </>
+  );
 };
 
 export default UseEffectApp;

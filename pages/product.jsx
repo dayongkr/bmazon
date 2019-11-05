@@ -19,6 +19,7 @@ import {
 } from '../styled-components/product/product';
 import ProductInfo from '../components/product/productInfo';
 import { ADD_CART_REQUEST } from '../reducers/cart';
+import { CREATE_ALERT } from '../reducers/alert';
 
 const Div = styled.div`
   background-color: #eee;
@@ -31,6 +32,7 @@ const Product = ({ asin }) => {
   const { imageUrl, details, name, loaded, price } = useSelector(
     state => state.product,
   );
+  const { addCartErrorReason } = useSelector(state => state.cart);
   const dispatch = useDispatch();
   const mainInfoWrapperRef = useRef();
 
@@ -41,7 +43,7 @@ const Product = ({ asin }) => {
         data: { asin, name, price, image: imageUrl, count: 1 },
       });
     }
-  }, [asin, name, price, imageUrl, loaded]);
+  }, [asin, name, price, imageUrl, loaded, addCartErrorReason]);
 
   useEffect(() => {
     dispatch({

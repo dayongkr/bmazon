@@ -4,6 +4,7 @@ import product from './product';
 import productList from './productList';
 import user from './user';
 import cart from './cart';
+import alert from './alert';
 
 const rootReducer = combineReducers({
   exchange,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   productList,
   user,
   cart,
+  alert,
 });
 
 export default rootReducer;

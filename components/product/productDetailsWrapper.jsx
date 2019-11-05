@@ -1,6 +1,6 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import styled, { keyframes } from 'styled-components';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import Clipboard from 'clipboard';
 
 import CategoryTag from './categoryTag';
 import formattingComma from '../../function/formattingComma';
@@ -15,28 +15,8 @@ import {
   ProductButtonWrapper,
   DimmedOption,
 } from '../../styled-components/product/productDetailsWrapper';
-
-const MovingKeyframes = keyframes`
-  0%{
-    filter:brightness(1);
-  }
-  100%{
-    filter:brightness(0.9);
-  }
-`;
-
-const Div = styled.div`
-  background-color: #eee;
-  border-radius: 5px;
-  width: ${props => props.width || '100%'};
-  height: ${props => props.height || '16px'};
-  margin: 10px 0;
-  animation-name: ${MovingKeyframes};
-  animation-duration: 1s;
-  animation-direction: alternate;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-`;
+import { LoadingBar } from '../../styled-components/loading';
+import { CREATE_ALERT } from '../../reducers/alert';
 
 const ProductDetailsWrapper = () => {
   const { rate, date, time } = useSelector(state => state.exchange);
@@ -50,9 +30,37 @@ const ProductDetailsWrapper = () => {
     ship,
     loaded,
   } = useSelector(state => state.product);
+  const { timeout, alerted } = useSelector(state => state.alert);
+  const dispatch = useDispatch();
 
   const [dimmed, setDimmed] = useState('none');
   const [optionSelect, setOptionSelect] = useState([]);
+  const shareButtonRef = useRef();
+
+  const onClickOption = useCallback(() => {
+    if (dimmed === 'none') {
+      setDimmed('block');
+    } else {
+      setDimmed('none');
+    }
+  }, [dimmed]);
+
+  const onClipboardShare = useCallback(() => {
+    dispatch({
+      type: CREATE_ALERT,
+      data: { text: '복사하였습니다' },
+    });
+  }, [alerted]);
+
+  const onAlert = useCallback(
+    e => {
+      dispatch({
+        type: CREATE_ALERT,
+        data: { text: e.target.dataset.alertText },
+      });
+    },
+    [alerted],
+  );
 
   useEffect(() => {
     if (options) {
@@ -62,16 +70,14 @@ const ProductDetailsWrapper = () => {
     }
   }, [options]);
 
-  const onClickOption = useCallback(
-    e => {
-      if (dimmed === 'none') {
-        setDimmed('block');
-      } else {
-        setDimmed('none');
-      }
-    },
-    [dimmed],
-  );
+  useEffect(() => {
+    // 클립보드
+    const clipboardShare = new Clipboard('.productShareButton');
+    clipboardShare.on('success', onClipboardShare);
+    return () => {
+      clipboardShare.off('success', onClipboardShare);
+    };
+  }, [alerted, timeout]);
 
   return (
     <>
@@ -79,13 +85,10 @@ const ProductDetailsWrapper = () => {
         <ProductDetailsWrapperStyled>
           <p className="title">{name && name}</p>
           <ProductCategoryWrapper>
-            {loaded &&
-              category &&
-              category.map(item => (
-                <CategoryTag key={item} text={item}></CategoryTag>
-              ))}
+            {category &&
+              category.map(item => <CategoryTag key={item} text={item} />)}
           </ProductCategoryWrapper>
-          {loaded && price && (
+          {price && (
             <ProductPrice>
               <span className="main">
                 {rate &&
@@ -93,12 +96,12 @@ const ProductDetailsWrapper = () => {
                 {name && !price && '구매불가 상품입니다.'}
               </span>
               <span className="sub">
-                {`\$${formattingComma(price)}`}
+                {`$${formattingComma(price)}`}
                 {ship && ` + $${formattingComma(ship)}`}
               </span>
             </ProductPrice>
           )}
-          {loaded && rate && ship && (
+          {rate && ship && (
             <>
               <ShipPrice>
                 {ship ? null : <span className="main">배송 불가</span>}
@@ -110,8 +113,7 @@ const ProductDetailsWrapper = () => {
             </>
           )}
 
-          {loaded &&
-            options &&
+          {options &&
             options.option.length !== 1 &&
             options.listName.map((item, index) => {
               return (
@@ -121,14 +123,14 @@ const ProductDetailsWrapper = () => {
                   img={imageUrl}
                   index={index}
                   selectedAsin={asin}
-                  key={item + 'OptionsWrapper'}
+                  key={item}
                   listType={item}
-                ></OptionsWrapper>
+                />
               );
             })}
 
           <DimmedOption style={{ display: dimmed }}>
-            <div id="optionBackground" onClick={onClickOption}></div>
+            <div id="optionBackground" onClick={onClickOption} />
             <div id="optionSliderWrapper">
               {options &&
                 options.option.length !== 1 &&
@@ -138,42 +140,52 @@ const ProductDetailsWrapper = () => {
                       sliderItem={sliderItem}
                       sliderIndex={sliderIndex}
                       options={options}
-                      key={sliderItem + `listName`}
+                      key={sliderItem}
                       asin={asin}
                       optionSelect={optionSelect}
                       setOptionSelect={setOptionSelect}
-                    ></OptionSliderList>
+                    />
                   );
                 })}
             </div>
           </DimmedOption>
           <ProductButtonWrapper>
-            <button className="productHeartButton">
+            <button
+              type="button"
+              onClick={onAlert}
+              className="productHeartButton"
+              data-alert-text="해당상품을 찜하였습니다"
+            >
               <img
                 src="/static/images/favorite_border-24px.svg"
                 width="17"
                 alt="찜하기 버튼"
-              ></img>
+              />
               찜하기
             </button>
-            <button className="productShareButton">
+            <button
+              type="button"
+              ref={shareButtonRef}
+              className="productShareButton"
+              data-clipboard-text={process.browser && window.location}
+            >
               <img
                 src="/static/images/share-24px.svg"
                 width="17"
                 alt="공유하기 버튼"
-              ></img>
+              />
               공유하기
             </button>
           </ProductButtonWrapper>
         </ProductDetailsWrapperStyled>
       ) : (
         <ProductDetailsWrapperStyled>
-          <Div height="30px" width="60%"></Div>
-          <Div width="80%" height="25px"></Div>
-          <Div></Div>
-          <Div></Div>
-          <Div></Div>
-          <Div></Div>
+          <LoadingBar height="30px" width="60%" />
+          <LoadingBar width="80%" height="25px" />
+          <LoadingBar />
+          <LoadingBar />
+          <LoadingBar />
+          <LoadingBar />
         </ProductDetailsWrapperStyled>
       )}
     </>

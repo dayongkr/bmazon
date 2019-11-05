@@ -140,8 +140,8 @@ export const CartPriceDetails = styled.div`
 
 export const CartPriceDetailsBig = styled(CartPriceDetails)`
   border-top: ${props => props.border && '1px solid #eee'};
-  padding: ${props => props.border && '20px 0 5px'};
-  margin: ${props => props.border && '20px 0 10px'};
+  padding: ${props => props.border && '20px 0 0px'};
+  margin: ${props => props.border && '20px 0 0'};
   & p {
     font-size: 20px;
     color: #666;

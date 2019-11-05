@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import withRedux from 'next-redux-wrapper';
 import withReduxSaga from 'next-redux-saga';
 import { applyMiddleware, compose, createStore } from 'redux';
-import { Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import axios from 'axios';
 import styled from 'styled-components';
@@ -17,6 +17,7 @@ const UseEffectApp = dynamic(import('../components/useEffectApp'), {
   ssr: false,
 });
 import Header from '../components/header';
+
 import { createGlobalStyle } from 'styled-components';
 import ResetStyle from '../styled-components/resetStyle';
 import { LOAD_USER_REQUEST } from '../reducers/user';
@@ -57,6 +58,7 @@ const App = ({ Component, store, pageProps }) => {
         <Head>
           <title>bmazon</title>
           <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&display=swap"></link>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
         </Head>
         <MainWrapper>
           <Header pageProps={pageProps}></Header>

@@ -13,6 +13,8 @@ import {
   DELETE_CART_FAILURE,
 } from '../reducers/cart';
 
+import { CREATE_ALERT } from '../reducers/alert';
+
 function addCartAPI(itemData) {
   return axios.post('/api/cart', itemData, {
     withCredentials: true,
@@ -22,11 +24,23 @@ function addCartAPI(itemData) {
 function* addCart(action) {
   try {
     yield call(addCartAPI, action.data);
-    return yield put({ type: ADD_CART_SUCCESS });
+    yield put({ type: ADD_CART_SUCCESS });
+    yield put({
+      type: CREATE_ALERT,
+      data: {
+        text: '장바구니에 추가했습니다',
+      },
+    });
   } catch (e) {
-    return yield put({
+    yield put({
       type: ADD_CART_FAILURE,
       error: e.response.data,
+    });
+    yield put({
+      type: CREATE_ALERT,
+      data: {
+        text: e.response.data,
+      },
     });
   }
 }

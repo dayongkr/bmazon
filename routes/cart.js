@@ -32,7 +32,7 @@ router.post('/', isLoggedIn, async (req, res, next) => {
       if (created) {
         res.json(cart);
       } else {
-        res.status(401).send('장바구니에 이미 존재합니다.');
+        res.status(401).send('장바구니에 이미 존재합니다');
       }
     });
   } catch (e) {
