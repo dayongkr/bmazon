@@ -1,24 +1,20 @@
 const initialState = {
   text: null,
   alerted: false,
-  timeout: null,
+  status: true,
 };
 
-export const CREATE_ALERT_REQUEST = 'CREATE_ALERT_REQUEST';
 export const CREATE_ALERT = 'CREATE_ALERT';
 export const RESET_ALERT = 'RESET_ALERT';
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case CREATE_ALERT_REQUEST: {
-      return { ...state };
-    }
     case CREATE_ALERT: {
       return {
         ...state,
         text: action.data.text,
         alerted: true,
-        timeout: action.data.timeout,
+        status: action.data.status,
       };
     }
     case RESET_ALERT: {

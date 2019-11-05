@@ -48,7 +48,7 @@ const ProductDetailsWrapper = () => {
   const onClipboardShare = useCallback(() => {
     dispatch({
       type: CREATE_ALERT,
-      data: { text: '복사하였습니다' },
+      data: { text: '복사하였습니다', status: true },
     });
   }, [alerted]);
 
@@ -56,7 +56,7 @@ const ProductDetailsWrapper = () => {
     e => {
       dispatch({
         type: CREATE_ALERT,
-        data: { text: e.target.dataset.alertText },
+        data: { text: e.target.dataset.alertText, status: true },
       });
     },
     [alerted],

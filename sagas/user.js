@@ -25,12 +25,6 @@ function logInAPI(loginData) {
 function* login(action) {
   try {
     const result = yield call(logInAPI, action.data);
-    // if (typeof result.data === 'string') {
-    //   return yield put({
-    //     type: LOG_IN_FAILURE,
-    //     error: result.data,
-    //   });
-    // }
     return yield put({
       type: LOG_IN_SUCCESS,
       data: result.data,
@@ -54,17 +48,10 @@ function registerAPI(registerData) {
 function* register(action) {
   try {
     yield call(registerAPI, action.data);
-    // if (typeof result.data === 'string') {
-    //   return yield put({
-    //     type: REGISTER_FAILURE,
-    //     error: result.data,
-    //   });
-    // }
     return yield put({
       type: REGISTER_SUCCESS,
     });
   } catch (e) {
-    console.error(e);
     return yield put({
       type: REGISTER_FAILURE,
       error: e.response.data,
@@ -93,7 +80,6 @@ function* logOut() {
       type: LOG_OUT_SUCCESS,
     });
   } catch (e) {
-    console.error(e);
     return yield put({
       type: LOG_OUT_FAILURE,
       error: e,
@@ -119,7 +105,6 @@ function* loadUser() {
       data: result.data,
     });
   } catch (e) {
-    console.error(e);
     return yield put({
       type: LOAD_USER_FAILURE,
       error: e,

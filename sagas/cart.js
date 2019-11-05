@@ -29,6 +29,7 @@ function* addCart(action) {
       type: CREATE_ALERT,
       data: {
         text: '장바구니에 추가했습니다',
+        status: true,
       },
     });
   } catch (e) {
@@ -40,6 +41,7 @@ function* addCart(action) {
       type: CREATE_ALERT,
       data: {
         text: e.response.data,
+        status: false,
       },
     });
   }

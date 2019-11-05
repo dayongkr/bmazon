@@ -24,7 +24,6 @@ function* getExchangeRate() {
       },
     });
   } catch (e) {
-    console.error(e);
     yield put({
       type: EXCHANGE_RATE_FAILURE,
     });

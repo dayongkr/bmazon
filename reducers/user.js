@@ -32,6 +32,7 @@ export default (state = initialState, action) => {
     case LOAD_USER_REQUEST: {
       return {
         ...state,
+        me: null,
       };
     }
 

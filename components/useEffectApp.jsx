@@ -58,7 +58,7 @@ const UseEffectApp = ({ children }) => {
     return () => {
       clearTimeout(timeout);
     };
-  }, [text]);
+  }, [alerted]);
 
   return (
     <>

@@ -158,7 +158,6 @@ function* getProductInfo(action) {
       },
     });
   } catch (e) {
-    console.error(e);
     yield put({
       type: PRODUCT_INFORMATION_FAILURE,
     });
@@ -186,7 +185,6 @@ function* getOptionInfo(action) {
       },
     });
   } catch (e) {
-    console.error(e);
     yield put({
       type: PRODUCT_OPTION_INFORMATION_FAILURE,
     });

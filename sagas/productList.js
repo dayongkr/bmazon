@@ -63,7 +63,6 @@ function* getProductList(action) {
         },
       });
   } catch (e) {
-    console.error(e);
     yield put({ type: PRODUCT_LIST_FAILURE });
   }
 }
