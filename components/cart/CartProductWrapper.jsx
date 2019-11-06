@@ -1,15 +1,22 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link';
 
 import { CartProductWrapperStyled } from '../../styled-components/cart';
-import { DELETE_CART_REQUEST } from '../../reducers/cart';
+import { DELETE_CART_REQUEST, UPDATE_CART_REQUEST } from '../../reducers/cart';
 
 const CartProductWrapper = ({ image, name, price, count, asin }) => {
   const [countInput, setCountInput] = useState(count);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    if (+countInput > 999) {
+      setCountInput(999);
+    }
+  }, [countInput]);
+
   const onChangeCount = useCallback(e => {
+    console.log(e.target.value);
     if (!e.target.value.match(/\D/g)) {
       setCountInput(e.target.value);
     }
@@ -18,9 +25,29 @@ const CartProductWrapper = ({ image, name, price, count, asin }) => {
     }
   }, []);
 
+  const onBlurCount = useCallback(
+    e => {
+      if (!e.target.value) {
+        setCountInput(1);
+      }
+      dispatch({
+        type: UPDATE_CART_REQUEST,
+        data: { asin, count: countInput },
+      });
+    },
+    [countInput],
+  );
+
   const onClickCountPlus = useCallback(
     e => {
-      setCountInput(+countInput + 1);
+      if (countInput < 999) {
+        setCountInput(+countInput + 1);
+
+        dispatch({
+          type: UPDATE_CART_REQUEST,
+          data: { asin, count: +countInput + 1 },
+        });
+      }
     },
     [countInput],
   );
@@ -29,6 +56,11 @@ const CartProductWrapper = ({ image, name, price, count, asin }) => {
     e => {
       if (!(+countInput === 1)) {
         setCountInput(+countInput - 1);
+
+        dispatch({
+          type: UPDATE_CART_REQUEST,
+          data: { asin, count: +countInput - 1 },
+        });
       }
     },
     [countInput],
@@ -60,6 +92,7 @@ const CartProductWrapper = ({ image, name, price, count, asin }) => {
         </button>
         <input
           onChange={onChangeCount}
+          onBlur={onBlurCount}
           value={countInput}
           type="text"
           className="count"

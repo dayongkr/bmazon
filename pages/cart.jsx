@@ -30,12 +30,11 @@ const Cart = () => {
         setProductPrice(
           +items
             .reduce((x, y) => {
-              if (typeof x === 'object') {
-                return x.price + y.price;
-              }
-              return x + y.price;
+              return {
+                price: x.price * (x.count ? x.count : 1) + y.price * y.count,
+              };
             })
-            .toFixed(2),
+            .price.toFixed(2),
         );
       }
       setFeePrice(+(productPrice / 10).toFixed(2));

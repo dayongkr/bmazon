@@ -1,4 +1,4 @@
-import { all, fork, takeLatest, call, put } from 'redux-saga/effects';
+import { all, fork, call, put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
 import {
@@ -11,6 +11,9 @@ import {
   DELETE_CART_REQUEST,
   DELETE_CART_SUCCESS,
   DELETE_CART_FAILURE,
+  UPDATE_CART_REQUEST,
+  UPDATE_CART_SUCCESS,
+  UPDATE_CART_FAILURE,
 } from '../reducers/cart';
 
 import { CREATE_ALERT } from '../reducers/alert';
@@ -48,7 +51,7 @@ function* addCart(action) {
 }
 
 function* watchAddCart() {
-  return yield takeLatest(ADD_CART_REQUEST, addCart);
+  return yield takeEvery(ADD_CART_REQUEST, addCart);
 }
 
 function getCartAPI() {
@@ -70,7 +73,7 @@ function* getCart() {
 }
 
 function* watchGetCart() {
-  return yield takeLatest(GET_CART_REQUEST, getCart);
+  return yield takeEvery(GET_CART_REQUEST, getCart);
 }
 
 function deleteCartAPI(asin) {
@@ -92,9 +95,38 @@ function* deleteCart(action) {
 }
 
 function* watchDeleteCart() {
-  return yield takeLatest(DELETE_CART_REQUEST, deleteCart);
+  return yield takeEvery(DELETE_CART_REQUEST, deleteCart);
+}
+
+function updateCartAPI(data) {
+  return axios.put(
+    `/api/cart`,
+    { count: data.count, asin: data.asin },
+    { withCredentials: true },
+  );
+}
+
+function* updateCart(action) {
+  try {
+    yield call(updateCartAPI, action.data);
+    return yield put({
+      type: UPDATE_CART_SUCCESS,
+      data: { asin: action.data.asin, count: action.data.count },
+    });
+  } catch (e) {
+    return yield put({ type: UPDATE_CART_FAILURE, error: e.response.data });
+  }
+}
+
+function* watchUpdateCart() {
+  return yield takeEvery(UPDATE_CART_REQUEST, updateCart);
 }
 
 export default function* userSaga() {
-  yield all([fork(watchAddCart), fork(watchGetCart), fork(watchDeleteCart)]);
+  yield all([
+    fork(watchAddCart),
+    fork(watchGetCart),
+    fork(watchDeleteCart),
+    fork(watchUpdateCart),
+  ]);
 }

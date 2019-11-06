@@ -52,4 +52,19 @@ router.delete('/:asin', isLoggedIn, async (req, res, next) => {
   }
 });
 
+router.put('/', isLoggedIn, async (req, res, next) => {
+  try {
+    const cartUpdate = await db.Cart.update(
+      {
+        count: req.body.count,
+      },
+      { where: { asin: req.body.asin } },
+    );
+    res.json(cartUpdate);
+  } catch (e) {
+    res.status(401).send('수정 실패');
+    next(e);
+  }
+});
+
 module.exports = router;

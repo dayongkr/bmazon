@@ -50,18 +50,4 @@ router.get('/:asin', async (req, res, next) => {
   }
 });
 
-// router.get('/option/:asin', async (req, res, next) => {
-//   try {
-//     const json = await axios.get(
-//       `https://sellercentral.amazon.com/fba/profitabilitycalculator/productmatches?searchKey=${
-//         req.params.asin
-//       }&language=en_US&profitcalcToken=${Math.random() * 10000}`,
-//     );
-//     res.json(json.data.data);
-//   } catch (e) {
-//     console.error(e);
-//     next(e);
-//   }
-// });
-
 module.exports = router;

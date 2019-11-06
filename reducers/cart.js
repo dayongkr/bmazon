@@ -3,7 +3,12 @@ const initialState = {
   addCartErrorReason: '',
   getCartErrorReason: '',
   deleteCartErrorReason: '',
+  updateCartErrorReason: '',
 };
+
+export const UPDATE_CART_REQUEST = 'UPDATE_CART_REQUEST';
+export const UPDATE_CART_SUCCESS = 'UPDATE_CART_SUCCESS';
+export const UPDATE_CART_FAILURE = 'UPDATE_CART_FAILURE';
 
 export const ADD_CART_REQUEST = 'ADD_CART_REQUEST';
 export const ADD_CART_SUCCESS = 'ADD_CART_SUCCESS';
@@ -19,6 +24,24 @@ export const DELETE_CART_FAILURE = 'DELETE_CART_FAILURE';
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case UPDATE_CART_REQUEST: {
+      return { ...state };
+    }
+    case UPDATE_CART_SUCCESS: {
+      return {
+        ...state,
+        items: state.items.map(item => {
+          if (item.asin === action.data.asin) {
+            item.count = action.data.count;
+            return item;
+          }
+          return item;
+        }),
+      };
+    }
+    case UPDATE_CART_FAILURE: {
+      return { ...state, updateCartErrorReason: action.error };
+    }
     case DELETE_CART_REQUEST: {
       return { ...state };
     }
