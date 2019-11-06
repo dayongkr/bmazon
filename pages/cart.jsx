@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import dynamic from 'next/dynamic';
+const { default: BootPay } = process.browser && require('bootpay-js');
 
 import { GET_CART_REQUEST } from '../reducers/cart';
 import {
@@ -15,8 +17,41 @@ const Cart = () => {
   const dispatch = useDispatch();
   const { items } = useSelector(state => state.cart);
   const { rate } = useSelector(state => state.exchange);
+  const { me } = useSelector(state => state.user);
   const [productPrice, setProductPrice] = useState(0);
   const [feePrice, setFeePrice] = useState(0);
+
+  const onClickPay = () => {
+    if (process.browser && me && items) {
+      BootPay.request({
+        price: 1000,
+        application_id: '5dc235374f74b40025c5f552',
+        name: '테스트',
+        pg: 'inicis',
+        method: 'card',
+        show_agree_window: 0,
+        items: items.map(item => ({
+          item_name: item.name,
+          qty: item.count,
+          unique: item.asin,
+          price: item.price,
+        })),
+        user_info: {
+          username: me.nickname,
+          email: me.email,
+          addr: 'testAdress',
+          phone: `0${me.tel}`,
+        },
+        order_id: `order_id_${Date.now()}`,
+        extra: {
+          quota: '0',
+        },
+      })
+        .error(e => console.error(e))
+        .confirm(data => BootPay.transactionConfirm(data))
+        .done(data => console.log(data));
+    }
+  };
 
   useEffect(() => {
     dispatch({ type: GET_CART_REQUEST });
@@ -84,7 +119,9 @@ const Cart = () => {
         </CartPriceDetailsBig>
       </CartPriceWrapper>
 
-      <div className="defaultButton">결제하기</div>
+      <div className="defaultButton" onClick={onClickPay}>
+        결제하기
+      </div>
     </CartMainWrapper>
   );
 };

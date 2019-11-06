@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import firebase from 'firebase/app';
 
 import Alert from './Alert';
 import ChannelService from '../function/ChannelService';
@@ -13,25 +12,10 @@ import { RESET_ALERT } from '../reducers/alert';
 
 const UseEffectApp = ({ children }) => {
   const { alerted, text } = useSelector(state => state.alert);
+  const { me } = useSelector(state => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!firebase.app.length) {
-      const firebaseConfig = {
-        apiKey: 'AIzaSyB9Le5JR703ViaRgGq3UDMF2TtH8-WjtIA',
-        authDomain: 'bmazon-79622.firebaseapp.com',
-        databaseURL: 'https://bmazon-79622.firebaseio.com',
-        projectId: 'bmazon-79622',
-        storageBucket: 'bmazon-79622.appspot.com',
-        messagingSenderId: '439174130509',
-        appID: '1:439174130509:web:dd773118ff730a57e4e50',
-      };
-      firebase.initializeApp(firebaseConfig);
-    }
-    ChannelService.boot({
-      pluginKey: '45da7edc-b6ce-44bb-a19d-629209caceae',
-    });
-
     if (!window.localStorage.getItem('exchangeRate')) {
       dispatch({ type: EXCHANGE_RATE_REQUEST });
     } else {
@@ -46,9 +30,6 @@ const UseEffectApp = ({ children }) => {
         },
       });
     }
-    return () => {
-      ChannelService.shutdown();
-    };
   }, []);
 
   useEffect(() => {
@@ -64,6 +45,25 @@ const UseEffectApp = ({ children }) => {
       }
     };
   }, [alerted]);
+
+  useEffect(() => {
+    if (me) {
+      ChannelService.boot({
+        pluginKey: '45da7edc-b6ce-44bb-a19d-629209caceae',
+        profile: {
+          name: me.nickname,
+          mobileNumber: '0' + String(me.tel),
+        },
+      });
+    } else {
+      ChannelService.boot({
+        pluginKey: '45da7edc-b6ce-44bb-a19d-629209caceae',
+      });
+    }
+    return () => {
+      ChannelService.shutdown();
+    };
+  }, [me]);
 
   return (
     <>
