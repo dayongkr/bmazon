@@ -6,8 +6,7 @@ const router = express.Router();
 
 router.post('/', async (req, res, next) => {
   try {
-    console.log(req.body);
-    axios.get('/api/order/verify', { receipt: req.body.receipt_id });
+    await axios.get('/api/order/verify', { receipt: req.body.receipt_id });
     res.send('OK');
   } catch (e) {
     next(e);
@@ -16,10 +15,12 @@ router.post('/', async (req, res, next) => {
 
 router.get('/verify', async (req, res, next) => {
   try {
+    console.log('hello');
     BootpayRest.setConfig(
       '5dc235374f74b40025c5f555',
       'SleMYbFexF/WEYy9jgqy4foXZAumP37fk6ENMjrLG60=',
     );
+
     BootpayRest.getAccessToken().then(res => {
       if (res.status === 200 && res.data.token !== undefined) {
         BootpayRest.verify(req.body.receipt).then(_res => {
@@ -29,6 +30,7 @@ router.get('/verify', async (req, res, next) => {
         });
       }
     });
+    res.send('OK');
   } catch (e) {
     next(e);
   }
