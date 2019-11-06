@@ -1,6 +1,5 @@
 const express = require('express');
 const devices = require('puppeteer/DeviceDescriptors');
-const apicache = require('apicache');
 
 const server = require('../server');
 

@@ -22,6 +22,7 @@ const userAPIRouter = require('./routes/user');
 const productListAPIRouter = require('./routes/productList');
 const cartAPIRouter = require('./routes/cart');
 const testAPIRouter = require('./routes/test');
+const orderAPIRouter = require('./routes/order');
 const db = require('./models');
 const passportConfig = require('./passport');
 
@@ -94,6 +95,7 @@ app.prepare().then(() => {
   server.use('/api/productList', productListAPIRouter);
   server.use('/api/cart', cartAPIRouter);
   server.use('/api/test', testAPIRouter);
+  server.use('/api/order', orderAPIRouter);
 
   const setupPuppeteer = async () => {
     try {
