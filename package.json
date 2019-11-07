@@ -36,7 +36,7 @@
     "express-session": "^1.17.0",
     "greenlock-express": "^2.7.18",
     "greenlock-store-fs": "^3.0.2",
-    "https-proxy-agent": "^3.0.0",
+    "https-proxy-agent": "^2.2.3",
     "jquery": "^3.4.1",
     "morgan": "^1.9.1",
     "mysql2": "^2.0.0",

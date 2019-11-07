@@ -54,4 +54,8 @@ const Home = () => {
   );
 };
 
+Home.getInitialProps = async ctx => {
+  console.log(ctx, 'hello');
+};
+
 export default Home;

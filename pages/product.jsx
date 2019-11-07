@@ -112,6 +112,7 @@ const Product = ({ asin }) => {
 };
 
 Product.getInitialProps = async context => {
+  console.log(context, 'hello2');
   return { asin: context.query.asin };
 };
 
