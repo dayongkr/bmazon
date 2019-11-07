@@ -39,7 +39,8 @@ export const ProductDetails = styled.div`
   & .title {
     font-size: 14px;
     color: #666;
-    height: 29px;
+    line-height: 16px;
+    height: 34px;
     overflow: hidden;
     text-overflow: ellipsis;
     word-break: break-all;
@@ -54,6 +55,6 @@ export const ProductDetails = styled.div`
     float: left;
     font-size: 12px;
     color: #999;
-    margin-top: 5px;
+    margin-top: 3px;
   }
 `;
