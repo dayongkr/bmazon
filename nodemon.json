@@ -1,5 +1,5 @@
 {
-  "watch": ["server.js", "routes", "nodemon.json"],
+  "watch": ["server.js", "routes", "nodemon.json", "function/getProduct/*"],
   "exec": "node server.js",
   "ext": "js json jsx"
 }

@@ -2,6 +2,7 @@ const express = require('express');
 const devices = require('puppeteer/DeviceDescriptors');
 
 const server = require('../server');
+const getProduct = require('../function/getProduct');
 
 const phone = [
   'iPhone 6 Plus',
@@ -24,15 +25,15 @@ router.get('/:asin', async (req, res, next) => {
   try {
     const page = await server.browser.newPage();
     await page.setRequestInterception(true);
-    page.on('request', req => {
-      switch (req.resourceType()) {
+    page.on('request', _req => {
+      switch (_req.resourceType()) {
         case 'stylesheet':
         case 'font':
         case 'image':
-          req.abort();
+          _req.abort();
           break;
         default:
-          req.continue();
+          _req.continue();
           break;
       }
     });
@@ -41,7 +42,8 @@ router.get('/:asin', async (req, res, next) => {
     );
     await page.goto(`https://www.amazon.com/dp/${req.params.asin}`);
     const html = await page.content();
-    res.send(html);
+    const productInfo = await getProduct(html);
+    await res.json(productInfo);
     await page.close();
   } catch (e) {
     console.error(e);

@@ -131,6 +131,11 @@ table {
   border-spacing: 0;
 }
 
+button { 
+  -webkit-appearance: none;
+  -moz-appearance: none;
+   appearance: none;}
+
 `;
 
 export default ResetStyle;

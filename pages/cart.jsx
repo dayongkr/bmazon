@@ -54,10 +54,6 @@ const Cart = () => {
   };
 
   useEffect(() => {
-    dispatch({ type: GET_CART_REQUEST });
-  }, []);
-
-  useEffect(() => {
     if (items && !(items.length === 0)) {
       if (items.length === 1) {
         setProductPrice(+items[0].price);
@@ -124,6 +120,11 @@ const Cart = () => {
       </div>
     </CartMainWrapper>
   );
+};
+
+Cart.getInitialProps = async ctx => {
+  const { dispatch } = ctx.store;
+  dispatch({ type: GET_CART_REQUEST });
 };
 
 export default Cart;
