@@ -8,7 +8,7 @@ import ProductShowWrapper from '../components/index/productShowWrapper';
 import Slide from '../components/index/slide';
 import { MD_PRODUCT_LIST_REQUEST } from '../reducers/productList';
 
-const Home = ({ ctx }) => {
+const Home = () => {
   const { rate, date, time, provider } = useSelector(state => state.exchange);
   const { mdItems } = useSelector(state => state.productList);
   const dispatch = useDispatch();
@@ -53,5 +53,7 @@ const Home = ({ ctx }) => {
     </div>
   );
 };
+
+// Home.getInitialProps = ctx => {};
 
 export default Home;

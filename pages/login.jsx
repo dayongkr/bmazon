@@ -127,8 +127,4 @@ const Login = () => {
   );
 };
 
-Login.getInitialProps = ctx => {
-  console.log(ctx);
-};
-
 export default Login;

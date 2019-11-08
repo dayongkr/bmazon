@@ -12,6 +12,7 @@ import { applyMiddleware, compose, createStore } from 'redux';
 import rootSaga from '../sagas';
 import reducer from '../reducers';
 import '../public/static/empty.css';
+// import configureStore from '../store';
 
 const UseEffectApp = dynamic(import('../components/useEffectApp'), {
   ssr: false,
