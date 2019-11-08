@@ -1,8 +1,5 @@
 const name = $ => {
-  return $('meta[name=title]')
-    .attr('content')
-    .match(/(?<=:).*(?=:)/)[0]
-    .trim();
+  return $('#title').text();
 };
 
 module.exports = name;

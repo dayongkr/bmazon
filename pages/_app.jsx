@@ -3,11 +3,11 @@ import Head from 'next/head';
 import dynamic from 'next/dynamic';
 import withRedux from 'next-redux-wrapper';
 import withReduxSaga from 'next-redux-saga';
-import { applyMiddleware, compose, createStore } from 'redux';
 import { Provider, useSelector } from 'react-redux';
-import createSagaMiddleware from 'redux-saga';
 import axios from 'axios';
 import styled from 'styled-components';
+import createSagaMiddleware from 'redux-saga';
+import { applyMiddleware, compose, createStore } from 'redux';
 
 import rootSaga from '../sagas';
 import reducer from '../reducers';
