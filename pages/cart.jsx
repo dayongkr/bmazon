@@ -30,17 +30,19 @@ const Cart = () => {
         pg: 'inicis',
         method: 'card',
         show_agree_window: 0,
-        items: items.map(item => ({
-          item_name: item.name,
-          qty: item.count,
-          unique: item.asin,
-          price: item.price,
-        })),
+        items: [
+          {
+            item_name: 'test',
+            qty: 1,
+            unique: '123asd',
+            price: 1000,
+          },
+        ],
         user_info: {
-          username: me.nickname,
-          email: me.email,
+          username: 'test',
+          email: 'test@test.com',
           addr: 'testAdress',
-          phone: `0${me.tel}`,
+          phone: `00011112222`,
         },
         order_id: `order_id_${Date.now()}`,
         extra: {

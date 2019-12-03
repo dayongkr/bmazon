@@ -8,12 +8,26 @@ import { RegisterWrapper } from '../styled-components/register';
 import SubmitInput from '../components/register/SubmitInput';
 import ButtonInput from '../components/register/ButtonInput';
 import { LOG_IN_REQUEST } from '../reducers/user';
+import FindUserInfo from '../components/FindUserInfo';
 
 const LoginWrapper = styled(RegisterWrapper)`
   padding: 0 20px 100px;
   background-color: white;
   & h1 {
     text-align: center;
+  }
+`;
+
+const LoginSpanWrapper = styled.div`
+  text-align: right;
+
+  & > span {
+    display: inline-block;
+    text-align: right;
+    font-size: 13px;
+    color: #999;
+    margin: 10px 4px;
+    cursor: pointer;
   }
 `;
 
@@ -109,20 +123,18 @@ const Login = () => {
         />
         <ButtonInput>로그인</ButtonInput>
       </form>
-      <Link href="/register">
-        <span
-          style={{
-            display: 'inline-block',
-            textAlign: 'right',
-            fontSize: '14px',
-            color: '#999',
-            padding: '10px 0',
-            cursor: 'pointer',
-          }}
-        >
-          회원가입
-        </span>
-      </Link>
+      <LoginSpanWrapper>
+        <Link href="/register">
+          <span>회원가입</span>
+        </Link>
+        <span>아이디 찾기</span>
+        <span>비밀번호 찾기</span>
+      </LoginSpanWrapper>
+      {/* <FindUserInfo>
+        <h2>아이디 찾기</h2>
+        <input placeholder="홍길동" />
+        <input placeholder="example@naver.com" />
+      </FindUserInfo> */}
     </LoginWrapper>
   );
 };

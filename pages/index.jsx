@@ -11,11 +11,6 @@ import { MD_PRODUCT_LIST_REQUEST } from '../reducers/productList';
 const Home = () => {
   const { rate, date, time, provider } = useSelector(state => state.exchange);
   const { mdItems } = useSelector(state => state.productList);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch({ type: MD_PRODUCT_LIST_REQUEST });
-  }, []);
 
   return (
     <div id="indexMainWrapper" style={{ backgroundColor: '#eee' }}>
@@ -54,6 +49,9 @@ const Home = () => {
   );
 };
 
-// Home.getInitialProps = ctx => {};
+Home.getInitialProps = ctx => {
+  const { dispatch } = ctx.store;
+  dispatch({ type: MD_PRODUCT_LIST_REQUEST });
+};
 
 export default Home;
