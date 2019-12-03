@@ -22,6 +22,7 @@ const phone = [
 const router = express.Router();
 
 router.get('/:asin', async (req, res, next) => {
+  console.log('hello');
   try {
     const page = await server.browser.newPage();
     await page.setRequestInterception(true);
@@ -42,6 +43,7 @@ router.get('/:asin', async (req, res, next) => {
     );
     await page.goto(`https://www.amazon.com/dp/${req.params.asin}`);
     const html = await page.content();
+    console.log(html);
     const productInfo = await getProduct(html);
     await res.json(productInfo);
     await page.close();
