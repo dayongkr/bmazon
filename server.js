@@ -132,17 +132,17 @@ app.prepare().then(() => {
     return handle(req, res);
   });
 
-  // if (dev) {
-  server.listen(80, () => {
-    console.log('next+express running on port 80');
-  });
-  https.createServer(devOption, server).listen(process.env.SSL_PORT || 443);
-  // } else {
-  //   http
-  //     .createServer(lex.middleware(redirectHttps()))
-  //     .listen(process.env.PORT || 80);
-  //   https
-  //     .createServer(lex.httpsOptions, lex.middleware(server))
-  //     .listen(process.env.SSL_PORT || 443);
-  // }
+  if (dev) {
+    server.listen(80, () => {
+      console.log('next+express running on port 80');
+    });
+    https.createServer(devOption, server).listen(process.env.SSL_PORT || 443);
+  } else {
+    http
+      .createServer(lex.middleware(redirectHttps()))
+      .listen(process.env.PORT || 80);
+    https
+      .createServer(lex.httpsOptions, lex.middleware(server))
+      .listen(process.env.SSL_PORT || 443);
+  }
 });
